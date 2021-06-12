@@ -13,7 +13,6 @@ require_once '../app/function.php';
         </nav>
     </header>
     <div class="container">
-    <p>Bonjour</p>
     <?=$pageMain ?>
     <?=$pageMain1 ?>
 </body>
