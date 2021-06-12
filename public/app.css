@@ -1,0 +1,360 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto',sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.6);
+    background: #f1f1f1;
+}
+
+a {
+    color: inherit;
+}
+
+.topbar {
+    color: rgb(243,74,162);
+    background: #c7c7c7;
+}
+
+.topbar a {
+    text-decoration: none;
+}
+
+.topbar-logo {
+    display: block;
+    padding: 11px 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+.topbar-logo::before {
+    content: '';
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-top: -2px;
+    margin-right: 20px;
+    vertical-align: middle;
+    background: center center / contain no-repeat;
+    background-image: url(./img/lpsbr.png);
+}
+
+.topbar-nav {
+    padding-bottom: 16px;
+    text-align: center;
+    line-height: 2;
+}
+
+.topbar-nav a {
+    display: inline-block;
+    margin: 0 12px;
+    color: rgb(243,74,162,0.67);
+    transition: color .3s;
+}
+
+.topbar-nav a:hover,
+.nav-link-active {
+    font-weight: bold;
+    color: rgb(243,74,162);
+}
+
+.container {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+    padding: 0 15px;
+    max-width: 1080px;
+}
+
+.sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.sidebar a {
+    display: block;
+    width: 50%;
+    padding: 0.6em 0;
+    padding-left: 10px;
+    border: solid 1px transparent;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.asidebar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.asidebar a {
+    display: block;
+    width: 50%;
+    padding: 0.6em 0;
+    padding-left: 10px;
+    border: solid 1px transparent;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.sidebar a::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-top: -2px;
+    margin-right: 20px;
+    vertical-align: middle;
+    opacity: .67;
+    background: center center / contain no-repeat;
+    background-image: url(./img/lpsbr.png);
+    transition: opacity .3s;
+}
+
+.sidebar a:active,
+.sidebar a:hover,
+.asidebar a:active,
+.asidebar a:hover {
+    border: solid 1px #dbdbdb;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    background-color: #fff;
+}
+
+.sidebar a:active::before,
+.sidebar a:hover::before {
+    opacity: 1;
+}
+
+.card {
+    margin-bottom: 15px;
+    border: solid 1px #dbdbdb;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.card:last-child {
+    margin-bottom: 0;
+}
+
+.card-header {
+    display: flex;
+    position: relative;
+    padding: 10px;
+}
+
+.card-avatar {
+    left: 10px;
+    margin-right: 10px;
+}
+
+.card-avatar {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin-top: 2px;
+    margin-right: 20px;
+    vertical-align: middle;
+    background: center center / contain no-repeat;
+    background-image: url(./img/lpsbr.png);
+}
+
+.card-title {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(243,74,162);
+}
+
+.card-prix {
+    font-size: 12px;
+    color: rgb(243,74,162,0.67);
+}
+
+.card p:first-child {
+    margin-top: 0;
+}
+
+.card-description {
+    padding: 10px;
+}
+
+.card-image {
+    display: block;
+    width: calc(100% + 20px);
+    margin: -10px -10px -5px -10px;
+}
+
+.card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: solid 1px #dbdbdb;
+    border-radius: 0 5px;
+    font-size: 12px;
+    color: rgb(243,74,162,0.67);
+    background: #fbfbfb;
+}
+
+.card-service {
+    margin-top: 5px;
+    border: solid 1px rgb(243,74,162);
+    border-radius: 5px;
+    box-shadow: -5px -5px 5px rgb(243,74,162,0.1);
+}
+
+.card-description-service {
+    display: flex;
+    border: solid 1px rgb(243,74,162,0.5);
+}
+
+.card-image-service {
+    display: block;
+    width: 50%;
+    margin: 0;
+}
+
+.card-footer a {
+    display: block;
+    padding: 0.6em 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.card-footer a:hover {
+    color: rgb(243,74,162);
+}
+
+.footer-question::before,
+.footer-reservation::after {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    opacity: .67;
+    background: center center / contain no-repeat;
+}
+
+.footer-question::before {
+    margin-top: -2px;
+    margin-right: 20px;
+    background-image: url(./img/lpsbr.png);
+}
+
+.footer-reservation::after {
+    margin-top: -2px;
+    margin-left: 20px;
+    background-image: url(./img/lpsbr.png);
+}
+
+.card-aside {
+    margin-bottom: 15px;
+    border: solid 1px #dbdbdb;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.card-aside-horaire {
+    justify-content: center;
+    text-align: center;
+}
+
+.horaire {
+    width: 100%;
+    margin-right: auto;
+    margin-bottom: 5px;
+    text-align: justify;
+}
+
+.trb td {
+    border-bottom: solid 5px rgb(243,74,162,0.33);
+    line-height: 2em;
+}
+
+.trb td:last-child {
+    text-align: right;
+}
+
+.card-aside-description {
+    margin: 5px;
+    text-align: justify;
+}
+
+.card-gallerie {
+    padding: 10px;
+}
+
+.card-gallerie img {
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+    border: solid 2px rgb(243,74,162);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(243,74,162,0.5);
+}
+
+.card-gallerie img:last-child {
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width:520px) {
+    .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+        padding: 0 25px;
+    }
+
+    .topbar-logo,
+    .topbar-nav {
+        padding: 0;
+    }
+
+    .topbar-nav a {
+        margin: 0 20px;
+    }
+}
+
+@media only screen and (min-width:950px) {
+    .container {
+        display: flex;
+    }
+
+    .sidebar {
+        display: block;
+        flex: none;
+        width: 180px;
+    }
+
+    .sidebar a,
+    .asidebar a {
+        width: 100%;
+    }
+
+    .main {
+        width: 100%;
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+
+    .aside {
+        flex: none;
+        width: 310px;
+    }
+}
