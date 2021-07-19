@@ -20,3 +20,11 @@ function nav_item_side(string $lien, string $titre, string $uri): string {
     <a class="nav-link{$active}" href="{$lien}">$titre</a>
     HTML;
 }
+
+function path(string $pathway, string $adress) {
+    $filename = "$pathway/../view/$adress.php";
+    if (file_exists($filename)) {
+        return (require $filename);
+    } else { return (require "$pathway/../view/accueil.php");
+    }
+}

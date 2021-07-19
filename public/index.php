@@ -1,6 +1,7 @@
 <?php
 $pathway = __DIR__;
 require "$pathway/../vendor/autoload.php";
+require "$pathway/../app/function.php";
 require "$pathway/../elements/config.php";
 require "$pathway/../view/contenu/service/data.php";
 date_default_timezone_set('Europe/Paris');
@@ -30,27 +31,22 @@ $pathway = __DIR__;
 </head>
 
 <?php
-/*dd($pathway);*/
+
 $uri = $_SERVER['REQUEST_URI'];
 $adress = explode("/", $uri);
 
+/*dd($uri);*/
 ob_start();
-if ($adress[1] === 'savoir-plus') {
-    require "$pathway/../view/savoir-plus.php";
-} elseif ($adress[1] === 'gallerie') {
-    require "$pathway/../view/gallerie.php";
-} elseif ($adress[1] === 'contact') {
-    require "$pathway/../view/contact.php";
-} else (require '../view/accueil.php');
+path($pathway, $adress[1]);
 $pageMain = ob_get_clean();
-
+/*
 ob_start();
 if ($adress[1] === '' || $adress[1] === 'accueil' ) {
     if (empty($adress[2])) {
         $adress[2] = 'service';
     }
-    require "$pathway/../view/contenu/' . $adress[2] . '.php";
+    require "$pathway/../view/contenu/" . $adress[2] . ".php";
 }
-$pageMain1 = ob_get_clean();
+$pageMain1 = ob_get_clean();*/
 
 require "$pathway/../elements/layout.php";

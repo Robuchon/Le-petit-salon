@@ -1,5 +1,5 @@
 <?php
-require_once '../app/function.php';
+$uri = $_SERVER['REQUEST_URI'];
 ?>
     <nav class="sidebar">
         <?= nav_item_side('/accueil/service', 'Service', $uri); ?>
