@@ -1,3 +1,14 @@
+<?php
+date_default_timezone_set('Europe/Paris');
+$heure = (int)($_GET['heure'] ?? date('G'));
+$jour = (int)($_GET['jour'] ?? date('N') - 1);
+$creneaux = CRENEAUX[$jour];
+$ouvert = in_creneaux($heure, $creneaux);
+$color = 'green';
+if (!$ouvert) {
+    $color = 'red';
+}
+?>
 <div class="container">
     <main class="main">
         <article class="card">

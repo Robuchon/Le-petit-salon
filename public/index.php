@@ -4,15 +4,6 @@ require "$pathway/../vendor/autoload.php";
 require "$pathway/../app/function.php";
 require "$pathway/../elements/config.php";
 require "$pathway/../view/contenu/service/data.php";
-date_default_timezone_set('Europe/Paris');
-$heure = (int)($_GET['heure'] ?? date('G'));
-$jour = (int)($_GET['jour'] ?? date('N') - 1);
-$creneaux = CRENEAUX[$jour];
-$ouvert = in_creneaux($heure, $creneaux);
-$color = 'green';
-if (!$ouvert) {
-    $color = 'red';
-}
 $uri = $_SERVER['REQUEST_URI'];
 $adress = explode("/", $uri);
 $pageMain1 = '';

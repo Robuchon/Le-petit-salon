@@ -1,17 +1,15 @@
 <?php 
 require_once '../view/contenu/service/data.php';
+$uri = $_SERVER['REQUEST_URI'];
+$adress = explode("/", $uri);
+$services = strtoupper($adress[3]);
 ?>
     <main class="main">
-    <?php foreach(SERVICES as $services): ?>
+    <?php foreach(constant($services) as $service): ?>
         <article class="card-service">
             <header class="card-header">
                 <div src="" alt="" class="card-avatar"></div>
-                <?= service_html($services) ?>
-            </header>
-            <div class="card-description-service">
-                <img src="../img/coif1.jpg" alt="" class="card-image-service">
-                <img src="../img/coif2.jpg" alt="" class="card-image-service">
-            </div>
+                <?= service_html($service) ?>
             <footer class="card-footer">
                 <a href="#" class="footer-question">Question</a>
                 <a href="#" class="footer-reservation">Réservation</a>
@@ -21,17 +19,17 @@ require_once '../view/contenu/service/data.php';
     </main>
     <aside class="aside">
         <nav class="asidebar">
-            <?= nav_item_side('#', 'Brushing Femme', $uri); ?>
-            <?= nav_item_side('#', 'Coupes Brushing Femme', $uri); ?>
-            <?= nav_item_side('#', 'Coloration Femme', $uri); ?>
-            <?= nav_item_side('#', 'Mèches - Balayage', $uri); ?>
-            <?= nav_item_side('#', 'Soins Profond', $uri); ?>         
-            <?= nav_item_side('#', 'Hommes', $uri); ?>         
-            <?= nav_item_side('#', 'Enfants', $uri); ?>         
-            <?= nav_item_side('#', 'Evénementiel', $uri); ?>         
-            <?= nav_item_side('#', 'Prestations spécifiques', $uri); ?>         
-            <?= nav_item_side('#', 'Forfait', $uri); ?>         
-            <?= nav_item_side('#', 'Beauté des Ongles', $uri); ?>         
+            <?= nav_item_side('/accueil/service/brushing', 'Brushing Femme', $uri); ?>
+            <?= nav_item_side('/accueil/service/coupe', 'Coupes Brushing Femme', $uri); ?>
+            <?= nav_item_side('/accueil/service/coloration', 'Coloration Femme', $uri); ?>
+            <?= nav_item_side('/accueil/service/meche', 'Mèches - Balayage', $uri); ?>
+            <?= nav_item_side('/accueil/service/soin', 'Soins Profond', $uri); ?>         
+            <?= nav_item_side('/accueil/service/homme', 'Hommes', $uri); ?>         
+            <?= nav_item_side('/accueil/service/enfant', 'Enfants', $uri); ?>         
+            <?= nav_item_side('/accueil/service/evenementiel', 'Evénementiel', $uri); ?>         
+            <?= nav_item_side('/accueil/service/specal', 'Prestations spécifiques', $uri); ?>         
+            <?= nav_item_side('/accueil/service/forfait', 'Forfait', $uri); ?>         
+            <?= nav_item_side('/accueil/service/ongle', 'Beauté des Ongles', $uri); ?>         
         </nav>
     </aside>
 </div>
