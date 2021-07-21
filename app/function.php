@@ -28,3 +28,21 @@ function path(string $pathway, string $adress) {
     } else { return (require "$pathway/../view/accueil.php");
     }
 }
+
+function subpath(string $pathway, string $adress) {
+    $filename = "$pathway/../view/contenu/$adress.php";
+    if (file_exists($filename)) {
+        return (require $filename);
+    } else { return (require "$pathway/../view/contenu/service.php");
+    }
+}
+
+/*
+ob_start();
+if ($adress[1] === '' || $adress[1] === 'accueil' ) {
+    if (empty($adress[2])) {
+        $adress[2] = 'service';
+    }
+    require "$pathway/../view/contenu/" . $adress[2] . ".php";
+}
+$pageMain1 = ob_get_clean();*/

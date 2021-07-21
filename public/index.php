@@ -13,13 +13,14 @@ $color = 'green';
 if (!$ouvert) {
     $color = 'red';
 }
+$uri = $_SERVER['REQUEST_URI'];
+$adress = explode("/", $uri);
 $pageMain1 = '';
-$pathway = __DIR__;
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,21 +33,18 @@ $pathway = __DIR__;
 
 <?php
 
-$uri = $_SERVER['REQUEST_URI'];
-$adress = explode("/", $uri);
-
-/*dd($uri);*/
 ob_start();
 path($pathway, $adress[1]);
 $pageMain = ob_get_clean();
-/*
-ob_start();
+
+
 if ($adress[1] === '' || $adress[1] === 'accueil' ) {
-    if (empty($adress[2])) {
-        $adress[2] = 'service';
-    }
-    require "$pathway/../view/contenu/" . $adress[2] . ".php";
+    ob_start();
+        if (empty($adress[2])) {
+            $adress[2] = 'service';      
+        }  
+    subpath($pathway, $adress[2]);
+    $pageMain1 = ob_get_clean();
 }
-$pageMain1 = ob_get_clean();*/
 
 require "$pathway/../elements/layout.php";
