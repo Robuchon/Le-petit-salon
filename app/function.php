@@ -37,6 +37,50 @@ function subpath(string $pathway, string $adress) {
     }
 }
 
+function service_html(array $services): string {
+    $title = $services[0] ;
+    $temps = $services[1];
+    $prix = $services[2] ;
+    $photo = $services[3];
+    $supplement = $services[4];
+    $commentaire = $services[5];
+    return <<<HTML
+    <div class="card-title">$title
+        <div class="card-prix">$temps, à partir de $prix €</div>
+        <div class="card-prix">$supplement</div>
+    </div>
+    </header>
+            <div class="card-description-service">
+                <img src="{$photo}" alt="" class="card-image-service">
+                <p class="com-service">$commentaire</p> 
+            </div>
+    HTML;
+}
+
+function produit_html(array $services): string {
+    $title = $services[0] ;
+    $prix = $services[1] ;
+    $reduction = $services[2];
+    $photo = $services[3];
+    $commentaire = $services[4];
+    $line = '';
+    if (!empty($reduction)) {
+        $reduction = "<div class='card-prix'>$reduction € </div>";
+        $line = '-line';
+    }
+    return <<<HTML
+    <div class="card-title">$title
+        <div class="card-prix$line">$prix €</div>
+        $reduction
+    </div>
+    </header>
+            <div class="card-description-service">
+                <img src="{$photo}" alt="" class="card-image-service">
+                <p class="com-service">$commentaire</p> 
+            </div>
+    HTML;
+}
+
 /*
 ob_start();
 if ($adress[1] === '' || $adress[1] === 'accueil' ) {

@@ -184,6 +184,13 @@ a {
     color: rgb(243,74,162,0.67);
 }
 
+.card-prix-line {
+    font-size: 12px;
+    margin-top: 2px;
+    color: rgba(0, 0, 0, 0.67);
+    text-decoration: line-through;
+}
+
 .com-service {
     display: block;
     text-align: center;

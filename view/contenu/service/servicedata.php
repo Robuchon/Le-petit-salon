@@ -32,23 +32,3 @@ define('COUPE', [
          'Supplément',
          ""]
     ]);
-
-function service_html(array $services): string {
-    $title = $services[0] ;
-    $temps = $services[1];
-    $prix = $services[2] ;
-    $photo = $services[3];
-    $supplement = $services[4];
-    $commentaire = $services[5];
-    return <<<HTML
-    <div class="card-title">$title
-        <div class="card-prix">$temps, à partir de $prix €</div>
-        <div class="card-prix">$supplement</div>
-    </div>
-    </header>
-            <div class="card-description-service">
-                <img src="{$photo}" alt="" class="card-image-service">
-                <p class="com-service">$commentaire</p> 
-            </div>
-    HTML;
-}

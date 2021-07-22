@@ -1,8 +1,10 @@
 <?php 
-require_once '../view/contenu/service/data.php';
+require_once '../view/contenu/service/servicedata.php';
 $uri = $_SERVER['REQUEST_URI'];
 $adress = explode("/", $uri);
-$services = strtoupper($adress[3]);
+$services = 'BRUSHING';
+if (!empty($adress[3])) {
+    $services = strtoupper($adress[3]);}
 ?>
     <main class="main">
     <?php foreach(constant($services) as $service): ?>
