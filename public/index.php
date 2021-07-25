@@ -3,10 +3,7 @@ $pathway = __DIR__;
 require "$pathway/../vendor/autoload.php";
 require "$pathway/../app/function.php";
 require "$pathway/../elements/config.php";
-require "$pathway/../view/contenu/service/servicedata.php";
-require "$pathway/../view/contenu/service/produitdata.php";
-$uri = $_SERVER['REQUEST_URI'];
-$adress = explode("/", $uri);
+$adress = adress();
 $pageMain1 = '';
 ?>
 

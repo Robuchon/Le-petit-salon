@@ -1,8 +1,33 @@
 <?php 
-function nav_item(string $lien, string $titre, string $adress): string {
+require_once "$pathway/../view/contenu/service/servicedata.php";
+require_once "$pathway/../view/contenu/service/produitdata.php";
+require_once "$pathway/../view/contenu/service/promodata.php";
+
+function adress() {
+    $uri = $_SERVER['REQUEST_URI'];
+    $adress = explode("/", $uri);
+    return $adress;
+}
+
+function targetBD () {
+    $adress = adress();
+    if ($adress[1] === 'accueil') {
+        $services = 'BRUSHING';
+    }
+    if (array_key_exists(2, $adress) && $adress[2] != 'service') {
+        $services = strtoupper($adress[2]);
+    }
+    if (array_key_exists(3, $adress)) {
+        $services = strtoupper($adress[3]);
+    }
+    return (constant($services));
+}
+
+function nav_item(string $lien, string $titre): string { 
+    $adress = adress();
     $active = '';
     $verif = '/';
-    $verif .= $adress;
+    $verif .= $adress[1];
     if ($verif === $lien) {
         $active = '-active';
     }
@@ -11,7 +36,8 @@ function nav_item(string $lien, string $titre, string $adress): string {
     HTML;
 }
 
-function nav_item_side(string $lien, string $titre, string $uri): string {
+function nav_item_side(string $lien, string $titre): string {
+    $uri = $_SERVER['REQUEST_URI'];
     $active = '';
     if ($uri === $lien) {
         $active = '-active';
@@ -37,27 +63,36 @@ function subpath(string $pathway, string $adress) {
     }
 }
 
-function service_html(array $services): string {
-    $title = $services[0] ;
-    $temps = $services[1];
-    $prix = $services[2] ;
-    $photo = $services[3];
-    $supplement = $services[4];
-    $commentaire = $services[5];
-    return <<<HTML
-    <div class="card-title">$title
-        <div class="card-prix">$temps, à partir de $prix €</div>
-        <div class="card-prix">$supplement</div>
-    </div>
-    </header>
-            <div class="card-description-service">
-                <img src="{$photo}" alt="" class="card-image-service">
-                <p class="com-service">$commentaire</p> 
-            </div>
-    HTML;
-}
+function service_html( $service ) { 
+    $title = $service[0] ;
+    $temps = $service[1];
+    $prix = $service[2] ;
+    $photo = $service[3];
+    $supplement = $service[4];
+    $commentaire = $service[5];
+    return 
+    <<<HTML
+            <article class="card-service">
+                <header class="card-header">
+                    <div src="" alt="" class="card-avatar"></div>
+                    <div class="card-title">$title
+                        <div class="card-prix">$temps, à partir de $prix €</div>
+                        <div class="card-prix">$supplement</div>
+                    </div>
+                </header>
+                <div class="card-description-service">
+                    <img src="{$photo}" alt="" class="card-image-service">
+                    <p class="com-service">$commentaire</p> 
+                </div>
+                <footer class="card-footer">
+                    <a href="#" class="footer-question">Question</a>
+                    <a href="#" class="footer-reservation">Réservation</a>
+                </footer>
+            </article>   
+    HTML; 
+    }
 
-function produit_html(array $services): string {
+function pro_html(array $services): string {
     $title = $services[0] ;
     $prix = $services[1] ;
     $reduction = $services[2];
@@ -68,25 +103,24 @@ function produit_html(array $services): string {
         $reduction = "<div class='card-prix'>$reduction € </div>";
         $line = '-line';
     }
-    return <<<HTML
-    <div class="card-title">$title
-        <div class="card-prix$line">$prix €</div>
-        $reduction
-    </div>
-    </header>
-            <div class="card-description-service">
-                <img src="{$photo}" alt="" class="card-image-service">
-                <p class="com-service">$commentaire</p> 
-            </div>
+    return 
+    <<<HTML
+            <article class="card-service">
+                <header class="card-header">
+                    <div src="" alt="" class="card-avatar"></div>
+                    <div class="card-title">$title
+                        <div class="card-prix$line">$prix €</div>
+                        $reduction
+                    </div>
+                </header>
+                <div class="card-description-service">
+                    <img src="{$photo}" alt="" class="card-image-service">
+                    <p class="com-service">$commentaire</p> 
+                </div>
+                <footer class="card-footer">
+                    <a href="#" class="footer-question">Question</a>
+                    <a href="#" class="footer-reservation">Réservation</a>
+                </footer>
+            </article>
     HTML;
-}
-
-/*
-ob_start();
-if ($adress[1] === '' || $adress[1] === 'accueil' ) {
-    if (empty($adress[2])) {
-        $adress[2] = 'service';
     }
-    require "$pathway/../view/contenu/" . $adress[2] . ".php";
-}
-$pageMain1 = ob_get_clean();*/
