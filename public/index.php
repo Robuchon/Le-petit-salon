@@ -2,6 +2,7 @@
 $pathway = __DIR__;
 require "$pathway/../vendor/autoload.php";
 require "$pathway/../app/function.php";
+require "$pathway/../app/db.php";
 require "$pathway/../elements/config.php";
 $adress = adress();
 $pageMain1 = '';
@@ -21,6 +22,15 @@ $pageMain1 = '';
 </head>
 
 <?php
+/*try{    
+    $pdo = new PDO("sqlite:$pathway/../app/lepetitsalon.db");
+}catch (PDOException $e){
+     die ('DB Error');
+}
+$query = $pdo->query('SELECT * FROM data');
+$data = $query->fetchAll();
+dd($data);*/
+
 
 ob_start();
 path($pathway, $adress[1]);
@@ -35,5 +45,7 @@ if ($adress[1] === '' || $adress[1] === 'accueil' ) {
     subpath($pathway, $adress[2]);
     $pageMain1 = ob_get_clean();
 }
+
+
 
 require "$pathway/../elements/layout.php";

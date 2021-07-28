@@ -1,4 +1,7 @@
 <?php
-$const = get_defined_constants( true );
-$cathegories [] = $const['user'];
+require_once "$pathway/../app/db.php";
+$clause = 'services';
+$pdo = getPDO();
+$data = Select($pdo, $clause);
 
+dd($data);

@@ -11,12 +11,13 @@ function adress() {
 
 function targetBD () {
     $adress = adress();
+    $services = 'BRUSHING';
     if ($adress[1] === 'accueil') {
         $services = 'BRUSHING';
-    }
+    } 
     if (array_key_exists(2, $adress) && $adress[2] != 'service') {
         $services = strtoupper($adress[2]);
-    }
+    } 
     if (array_key_exists(3, $adress)) {
         $services = strtoupper($adress[3]);
     }
