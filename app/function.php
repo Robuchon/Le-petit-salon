@@ -1,27 +1,23 @@
 <?php 
-require_once "$pathway/../view/contenu/service/servicedata.php";
-require_once "$pathway/../view/contenu/service/produitdata.php";
-require_once "$pathway/../view/contenu/service/promodata.php";
-
 function adress() {
     $uri = $_SERVER['REQUEST_URI'];
     $adress = explode("/", $uri);
     return $adress;
 }
 
-function targetBD () {
+function targetValeur () {
     $adress = adress();
-    $services = 'BRUSHING';
+    $services = 'brushing';
     if ($adress[1] === 'accueil') {
-        $services = 'BRUSHING';
+        $services = 'brushing';
     } 
     if (array_key_exists(2, $adress) && $adress[2] != 'service') {
-        $services = strtoupper($adress[2]);
+        $services = $adress[2];
     } 
     if (array_key_exists(3, $adress)) {
-        $services = strtoupper($adress[3]);
+        $services = $adress[3];
     }
-    return (constant($services));
+    return $services;
 }
 
 function nav_item(string $lien, string $titre): string { 
@@ -56,21 +52,21 @@ function path(string $pathway, string $adress) {
     }
 }
 
-function subpath(string $pathway, string $adress) {
-    $filename = "$pathway/../view/contenu/$adress.php";
+function subpath(string $pathway, string $adress, string $subadress) {
+    $filename = "$pathway/../view/$adress/$subadress.php";
     if (file_exists($filename)) {
         return (require $filename);
-    } else { return (require "$pathway/../view/contenu/service.php");
+    } else { return (require "$pathway/../view/accueil/service.php");
     }
 }
 
 function service_html( $service ) { 
-    $title = $service[0] ;
-    $temps = $service[1];
-    $prix = $service[2] ;
-    $photo = $service[3];
-    $supplement = $service[4];
-    $commentaire = $service[5];
+    $title = $service['titre'] ;
+    $temps = $service['temps'];
+    $prix = $service['prix'] ;
+    $photo = $service['img'];
+    $supplement = $service['supplement'];
+    $commentaire = $service['affichage'];
     return 
     <<<HTML
             <article class="card-service">
@@ -93,12 +89,12 @@ function service_html( $service ) {
     HTML; 
     }
 
-function pro_html(array $services): string {
-    $title = $services[0] ;
-    $prix = $services[1] ;
-    $reduction = $services[2];
-    $photo = $services[3];
-    $commentaire = $services[4];
+function pro_html(array $produit): string {
+    $title = $produit['titre'] ;
+    $prix = $produit['prix'] ;
+    $reduction = $produit['promo'];
+    $photo = $produit['img'];
+    $commentaire = $produit['description'];
     $line = '';
     if (!empty($reduction)) {
         $reduction = "<div class='card-prix'>$reduction € </div>";

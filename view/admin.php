@@ -1,7 +1,6 @@
-<?php
-require_once "$pathway/../app/db.php";
-$clause = 'services';
-$pdo = getPDO();
-$data = Select($pdo, $clause);
 
-dd($data);
+<nav class="sidebar">
+<?= nav_item_side('/admin/service', 'Service'); ?>
+<?= nav_item_side('/admin/produit', 'Produit'); ?>
+<?= nav_item_side('/admin/promo', 'Promotion'); ?>
+</nav>

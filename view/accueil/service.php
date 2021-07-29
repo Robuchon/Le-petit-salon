@@ -1,5 +1,7 @@
+    <?php //dd(targetService()); ?>
+    
     <main class="main">
-        <?php foreach(targetBD() as $service): ?>
+        <?php foreach(targetService() as $service): ?>
             <?= service_html($service) ?>
         <?php endforeach; ?>
     </main>
@@ -20,4 +22,3 @@
     </aside>
 </div>
 
-<?php //dd(targetBD());

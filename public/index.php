@@ -22,30 +22,18 @@ $pageMain1 = '';
 </head>
 
 <?php
-/*try{    
-    $pdo = new PDO("sqlite:$pathway/../app/lepetitsalon.db");
-}catch (PDOException $e){
-     die ('DB Error');
-}
-$query = $pdo->query('SELECT * FROM data');
-$data = $query->fetchAll();
-dd($data);*/
-
 
 ob_start();
 path($pathway, $adress[1]);
 $pageMain = ob_get_clean();
 
 
-if ($adress[1] === '' || $adress[1] === 'accueil' ) {
+if ($adress[1] === '' || $adress[1] === 'accueil' || $adress[1] === 'admin' ) {
     ob_start();
         if (empty($adress[2])) {
             $adress[2] = 'service';      
         }  
-    subpath($pathway, $adress[2]);
+    subpath($pathway, $adress[1], $adress[2]);
     $pageMain1 = ob_get_clean();
 }
-
-
-
 require "$pathway/../elements/layout.php";

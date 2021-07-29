@@ -225,6 +225,13 @@ a {
     background: #fbfbfb;
 }
 
+.card-form {
+    margin-top: 5px;
+    border: solid 1px rgb(243,74,162);
+    border-radius: 5px;
+    box-shadow: -5px -5px 5px rgb(243,74,162,0.1);
+}
+
 .card-service {
     margin-top: 5px;
     border: solid 1px rgb(243,74,162);
