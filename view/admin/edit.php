@@ -1,33 +1,52 @@
 <?php 
+$uri = adress();
+if (isset($_POST['titre'])) {
+    serviceEdit($_POST);
+}
+
 $service = targetEdit();
 $titre = $service['titre'];
+$services = $service['services'];
 $temps = $service['temps'];
 $prix = $service['prix'] ;
 $img = $service['img'];
 $supplement = $service['supplement'];
 $affichage = $service['affichage'];
-if (isset($_POST['titre'])) {
-    serviceEdit($_POST);
-}
+
 ?>
-
-<article class="card-form">
-    <form action="" method="post">
-        <p>Titre</p>
-        <input type="text" class='form-control' name='titre' value='<?=$titre?>'><br>
-        <p>Temps</p>
-        <input type="text" class='form-control' name='temps' value='<?=$temps?>'><br>
-        <p>Prix</p>
-        <input type="text" class='form-control' name='prix' value='<?=$prix?>'><br>
-        <p>Supplement</p>
-        <input type="text" class='form-control' name='supplement' value='<?=$supplement?>'><br>
-        <p>Img</p>
-        <input type="text" class='form-control' name='img' value='<?=$img?>'><br>
-        <p>Affichage</p>
-        <input type="text" class='form-control' name='affichage' value='<?=$affichage?>'>
-        <button class="btn">Edité</button>
-    </form>
-    
-</article> 
-
-<?=service_html(targetEdit());
+<main class="main">
+    <article class="card-form">
+        <form action="" method="post">
+            <div class='form-ptext'>
+                <p class="form-edit">Titre</p>
+                <input type="text" name='titre' value='<?=$titre?>'>
+            </div>
+            <div class='form-ptext'>
+                <p class="form-edit">Services</p>
+                <input type="text" name='services' value='<?=$services?>'>
+            </div>
+            <div class="form-ptext">
+                <p class="form-edit">Temps</p>
+                <input type="text" name='temps' value='<?=$temps?>'>
+            </div>
+            <div class='form-ptext'>
+                <p class="form-edit">Prix</p>
+                <input type="text" name='prix' value='<?=$prix?>'>
+            </div>
+            <div class='form-ligne'>
+                <p class="form-edit">Supplement</p>
+                <input type="text"  name='supplement' value='<?=$supplement?>'>
+            </div>
+            <div class='form-gtext'>
+                <p class="form-edit">Img</p>
+                <textarea name="img" id="" cols="" rows="4"><?=$img?></textarea>
+            </div>
+            <div class='form-gtext'>
+                <p class="form-edit">Déscription</p>
+                <textarea name="affichage" id="" cols="" rows="4"><?=$affichage?></textarea>
+            </div>    
+            <button class="btn">Editer</button>
+        </form>
+    </article> 
+    <?=service_html(targetEdit());?>
+</main>

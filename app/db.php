@@ -29,10 +29,15 @@ function targetProduit (): array {
     return $query->fetchALL();
     }
 
-function targetEdit (): array {
+function targetEdit () {
     $pdo = getPDO();
     $uri = adress();
-    $valeur = $uri[3];
+    if (!empty($uri[4])){
+        $valeur = $uri[4];
+    }
+    if (empty($uri[4])){
+        $valeur = $pdo->lastInsertId();
+    }
     $query = $pdo->query("SELECT * FROM service WHERE key='$valeur'");
     return $query->fetch();
 }
@@ -40,14 +45,34 @@ function targetEdit (): array {
 function serviceEdit ($data) {    
     $pdo = getPDO();
     $uri = adress();
-    $valeur = $uri[3];
-    $query = $pdo->prepare("UPDATE service SET titre = :titre, temps = :temps, prix = :prix, supplement = :supplement, img = :img, affichage = :affichage WHERE key='$valeur' ");
+    $valeur = $uri[4];
+    $type = $uri[3];
+    $query = $pdo->prepare("UPDATE $type SET titre = :titre, services = :services, temps = :temps, prix = :prix, supplement = :supplement, img = :img, affichage = :affichage WHERE key='$valeur' ");
     $query->execute([
         'titre' => $data['titre'],
+        'services' => $data['services'],
         'temps' => $data['temps'],
         'prix' => $data['prix'],
         'supplement' => $data['supplement'],
         'img' => $data['img'],
         'affichage' => $data['affichage']
     ]);
+}
+
+function serviceCreate ($data) {    
+    $pdo = getPDO();
+    $type = $data['type'];
+    $query = $pdo->prepare("INSERT INTO $type (titre, services, temps, prix, supplement, img, affichage) VALUES (:titre, :services, :temps, :prix, :supplement, :img, :affichage)");
+    $query->execute([
+        'titre' => $data['titre'],
+        'services' => $data['services'],
+        'temps' => $data['temps'],
+        'prix' => $data['prix'],
+        'supplement' => $data['supplement'],
+        'img' => $data['img'],
+        'affichage' => $data['affichage']
+    ]);
+    $id = $pdo->lastInsertId();
+    header("location: /admin/edit/service/$id");
+    exit();
 }

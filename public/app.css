@@ -259,6 +259,37 @@ a {
     transition: .3s;
 }
 
+.form-ptext {
+    display: inline-block;
+    width: 49%;    
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-ptext input {
+    width: 100%;
+}
+
+.form-ligne,
+.form-ligne input {
+    display: inline-block;
+    width: 100%;    
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-gtext,
+.form-gtext textarea {
+    display: inline-block;
+    width: 100%;    
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-edit {
+    margin: 5px 0px;
+}
+
 .card-footer a:hover {
     color: rgb(243,74,162);
 }

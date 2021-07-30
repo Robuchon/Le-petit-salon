@@ -1,6 +1,6 @@
     <main class="main">
         <?php foreach(targetService() as $service): ?>
-            <li><a class="nav-link" href="/admin/edit/<?=$service['key']?>"><?=$service['titre']?></a></li>
+            <li><a class="nav-link" href="/admin/edit/service/<?=$service['key']?>"><?=$service['titre']?></a></li>
         <?php endforeach; ?>
     </main>
   
