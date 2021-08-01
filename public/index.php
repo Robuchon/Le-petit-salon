@@ -3,6 +3,7 @@ $pathway = __DIR__;
 require "$pathway/../vendor/autoload.php";
 require "$pathway/../app/function.php";
 require "$pathway/../app/db.php";
+require "$pathway/../app/admin.php";
 require "$pathway/../elements/config.php";
 $adress = adress();
 $pageMain1 = '';

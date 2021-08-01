@@ -48,5 +48,19 @@ $affichage = $service['affichage'];
             <button class="btn">Editer</button>
         </form>
     </article> 
+    <menu>
+        <button id="dialogue">Supprimer</button>
+        <dialog id='dialogue'>
+            <form method="dialog">
+                <label>etes-vous sur de vouloir supprimer</label>
+                <menu>
+                    <button value="null">Annuler</button>
+                    <button value="suppretion">Confirmer</button>
+                </menu>
+            </form> 
+        </dialog>
+    </menu>   
+    
+   
     <?=service_html(targetEdit());?>
 </main>

@@ -23,9 +23,8 @@ function targetValeur () {
 function nav_item(string $lien, string $titre): string { 
     $adress = adress();
     $active = '';
-    $verif = '/';
-    $verif .= $adress[1];
-    if ($verif === $lien) {
+    $verif = explode("/", $lien);
+    if ($adress[1] === $verif[1]) {
         $active = '-active';
     }
     return <<<HTML
@@ -33,10 +32,23 @@ function nav_item(string $lien, string $titre): string {
     HTML;
 }
 
-function nav_item_side(string $lien, string $titre): string {
-    $uri = $_SERVER['REQUEST_URI'];
+function nav_item_left(string $lien, string $titre): string {
+    $adress = adress();
     $active = '';
-    if ($uri === $lien) {
+    $verif = explode("/", $lien);
+    if ($adress[2] === $verif[2]) {
+        $active = '-active';
+    }
+    return <<<HTML
+    <a class="nav-link{$active}" href="{$lien}">$titre</a>
+    HTML;
+}
+
+function nav_item_right(string $lien, string $titre): string {
+    $adress = adress();
+    $active = '';
+    $verif = explode("/", $lien);
+    if ($adress[3] === $verif[3]) {
         $active = '-active';
     }
     return <<<HTML
@@ -66,7 +78,7 @@ function service_html( $service ) {
     $prix = $service['prix'] ;
     $photo = $service['img'];
     $supplement = $service['supplement'];
-    $commentaire = $service['affichage'];
+    $commentaire = nl2br(htmlentities($service['affichage']));
     return 
     <<<HTML
             <article class="card-service">
@@ -94,7 +106,7 @@ function pro_html(array $produit): string {
     $prix = $produit['prix'] ;
     $reduction = $produit['promo'];
     $photo = $produit['img'];
-    $commentaire = $produit['description'];
+    $commentaire = nl2br(htmlentities($produit['description']));
     $line = '';
     if (!empty($reduction)) {
         $reduction = "<div class='card-prix'>$reduction € </div>";
