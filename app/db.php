@@ -29,6 +29,12 @@ function targetProduit (): array {
     return $query->fetchALL();
     }
 
+function targetPromo (): array { 
+    $pdo = getPDO();
+    $query = $pdo->query("SELECT * FROM produit WHERE promo = !null");
+    return $query->fetchALL();
+    }
+
 function targetEdit () {
     $pdo = getPDO();
     $uri = adress();

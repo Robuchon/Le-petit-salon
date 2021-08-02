@@ -27,11 +27,11 @@ $affichage = $service['affichage'];
             </div>
             <div class="form-ptext">
                 <p class="form-edit">Temps</p>
-                <input type="text" name='temps' value='<?=$temps?>'>
+                <input type="number" name='temps' value='<?=$temps?>'>
             </div>
             <div class='form-ptext'>
                 <p class="form-edit">Prix</p>
-                <input type="text" name='prix' value='<?=$prix?>'>
+                <input type="number" name='prix' value='<?=$prix?>'>
             </div>
             <div class='form-ligne'>
                 <p class="form-edit">Supplement</p>
@@ -47,19 +47,7 @@ $affichage = $service['affichage'];
             </div>    
             <button class="btn">Editer</button>
         </form>
-    </article> 
-    <menu>
-        <button id="dialogue">Supprimer</button>
-        <dialog id='dialogue'>
-            <form method="dialog">
-                <label>etes-vous sur de vouloir supprimer</label>
-                <menu>
-                    <button value="null">Annuler</button>
-                    <button value="suppretion">Confirmer</button>
-                </menu>
-            </form> 
-        </dialog>
-    </menu>   
+    </article>   
     
    
     <?=service_html(targetEdit());?>

@@ -9,5 +9,5 @@ if (isset($_POST['titre'])) {
     <?=type_html();?>
 <?php endif;?>
 <?php if (isset($_POST['type'])):?>
-    <?=createservice_html($_POST['type']);?>
+    <?=create_html($_POST['type']);?>
 <?php endif;?>
