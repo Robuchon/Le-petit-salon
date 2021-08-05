@@ -1,11 +1,12 @@
 <?php
 $pathway = __DIR__;
+require "$pathway/../elements/config.php";
 require "$pathway/../vendor/autoload.php";
 require "$pathway/../app/function.php";
 require "$pathway/../app/db.php";
 require "$pathway/../app/htmladmin.php";
 require "$pathway/../app/html.php";
-require "$pathway/../elements/config.php";
+require "$pathway/../app/validateur.php";
 $adress = adress();
 $pageMain1 = '';
 ?>

@@ -24,7 +24,7 @@ function create_html($type) {
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Prix</p>
-                        <input type="number" name='prix' placeholder='ex 25'>
+                        <input type="number" name='prix' placeholder='ex : 25'>
                     </div>
                     <div class='form-ligne'>
                         <p class="form-edit">Supplement</p>
@@ -66,7 +66,7 @@ function create_html($type) {
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Prix</p>
-                        <input type="number" name='prix' placeholder='ex 25'>
+                        <input type="number" name='prix' placeholder='ex : 25'>
                     </div>
                     <div class='form-ligne'>
                         <p class="form-edit">Supplement</p>

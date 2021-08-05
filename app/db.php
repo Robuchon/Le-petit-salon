@@ -16,6 +16,12 @@ $query = $pdo->query("SELECT DISTINCT $column FROM service");
 return $query->fetchALL();
 }
 
+function matchService (): array {
+    $pdo = getPDO();
+    $query = $pdo->query("SELECT DISTINCT services FROM service");
+    return $query->fetchALL();
+}
+
 function targetService (): array { 
     $pdo = getPDO();
     $valeur = targetValeur();
