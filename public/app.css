@@ -288,6 +288,13 @@ a {
 
 .form-edit {
     margin: 5px 0px;
+    display: inline-block;
+}
+
+.form-erreur {
+    margin: 5px 0px;
+    color: rgb(220, 0, 0);
+    display: inline-block;
 }
 
 .card-footer a:hover {

@@ -52,11 +52,11 @@ function validNonVide($data) {
 function validMatch($data) {
     $match = matchService();
     if (!in_array($data, $match)) {
-        return "c'est vide";
+        return "c'est pas un service valide ";
     };
 }
 
-function validVide ($data) {
+function validVide () {
     return;
 }
 
