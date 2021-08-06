@@ -1,5 +1,31 @@
 <?php
 
+function connexion_html ($erreur = null) {
+    $usererreur = $erreur['username'];
+    $passerreur = $erreur['password'];
+    return
+    <<<HTML
+        <main class="main">
+            <article class="card-form">
+                <form action="" method="post">
+                    <div class='form-ligne'>
+                        <p>page de connexion</p>    
+                    </div>
+                    <div class='form-ptext'>
+                        <p class="form-edit">Nom d'utilisateur</p> <p class='form-erreur'>$usererreur</p>
+                        <input type="text" name="username">
+                    </div>
+                    <div class='form-ptext'>
+                        <p class="form-edit">Mot de passe</p> <p class='form-erreur'>$passerreur</p>
+                        <input type="password" name="password">
+                    </div>
+                    <button type="submit">Connexion</button>
+                </form>
+            </article> 
+        </main>  
+    HTML;
+}
+
 function create_html($type, $erreur = null) {
     if (empty($erreur)) {
         $erreur = ["", "", "", "", "", "", "", ""];
