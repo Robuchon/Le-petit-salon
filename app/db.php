@@ -41,14 +41,16 @@ function targetPromo (): array {
     return $query->fetchALL();
     }
 
-function targetEdit () {
+function targetEdit ($valeur = null) {
     $pdo = getPDO();
     $uri = adress();
-    if (!empty($uri[4])){
-        $valeur = $uri[4];
-    }
-    if (empty($uri[4])){
-        $valeur = $pdo->lastInsertId();
+    if (is_null($valeur)) {
+        if (!empty($uri[4])){
+            $valeur = $uri[4];
+        }
+        if (empty($uri[4])){
+            $valeur = $pdo->lastInsertId();
+        }
     }
     $query = $pdo->query("SELECT * FROM service WHERE key='$valeur'");
     return $query->fetch();
@@ -85,6 +87,15 @@ function serviceCreate ($data) {
         'affichage' => $data['affichage']
     ]);
     $id = $pdo->lastInsertId();
-    header("location: /admin/edit/service/$id");
+    header("location: /admin/edit/$type/$id");
     exit();
+}
+
+function serviceDelete ($data) {
+    $pdo = getPDO();
+    $type = $data['type'];
+    $key = $data['key'];
+    $query = $pdo->prepare("DELETE FROM $type WHERE key='$key'");
+    $query->execute();
+    header("location: /admin");
 }

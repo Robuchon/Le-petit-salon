@@ -18,7 +18,7 @@ function service_html( $service ) {
                     </div>
                 </header>
                 <div class="card-description-service">
-                    <img src="{$photo}" alt="" class="card-image-service">
+                    <img src="$photo" alt="" class="card-image-service">
                     <p class="com-service">$commentaire</p> 
                 </div>
                 <footer class="card-footer">
