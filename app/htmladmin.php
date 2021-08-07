@@ -1,8 +1,14 @@
 <?php
 
 function connexion_html ($erreur = null) {
-    $usererreur = $erreur['username'];
-    $passerreur = $erreur['password'];
+    $usererreur = '';
+    $passerreur = '';
+    if (isset($erreur['username'])) {
+        $usererreur = $erreur['username'];
+    }
+    if (isset($erreur['password'])) {
+        $passerreur = $erreur['password'];
+    }
     return
     <<<HTML
         <main class="main">
@@ -59,9 +65,9 @@ function create_html($type, $erreur = null) {
                         <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
                         <input type="text"  name='supplement' placeholder='Supplement'>
                     </div>
-                    <div class='form-gtext'>
+                    <div class='form-ligne'>
                         <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <textarea name="img" id="" cols="" rows="4"></textarea>
+                        <input type="file"  name='img'>
                     </div>
                     <div class='form-gtext'>
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
@@ -166,9 +172,9 @@ function edit_html($erreur = null) {
                         <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
                         <input type="text"  name='supplement' value="$supplement">
                     </div>
-                    <div class='form-gtext'>
+                    <div class='form-ligne'>
                         <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <textarea name="img" id="" cols="" rows="4">$img</textarea>
+                        <input type="file"  name='img' enctype="multipart/form-data" accept=".jpg, .jpeg, .png">
                     </div>
                     <div class='form-gtext'>
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>

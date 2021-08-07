@@ -1,6 +1,7 @@
 <?php
+pageAdmin();
 if (isset($_POST['validation'])) {
-    if ($_POST['validation']=== 'val') {
+    if ($_POST['validation'] === 'val') {
         serviceDelete($_POST);
     }
 } 

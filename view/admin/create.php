@@ -1,4 +1,5 @@
 <?php
+pageAdmin();
 $erreurform = '';
 if (isset($_POST['titre'])) {
     if (!array_search(!null, validateur($_POST))) {
