@@ -1,5 +1,6 @@
 <?php
 $erreurs = '';
+
 if (isset($_POST) && auth($_POST) === 1 ) {
     session_start();
     $_SESSION['connecte'] = auth($_POST);

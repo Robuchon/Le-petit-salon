@@ -9,6 +9,29 @@ require "$pathway/../app/html.php";
 require "$pathway/../app/validateur.php";
 $adress = adress();
 $pageMain1 = '';
+if ($adress[1] === 'admin' && connexion() === false) {
+    pageAdmin();
+}
+if ($adress[1] === 'auth' && connexion() === true) {
+    header ('location: /admin');
+    exit;
+}
+$erreurform = '';
+if (isset($_POST['titre'])) {
+    if (!array_search(!null, validateur($_POST))) {
+        $type = $_POST['type'];
+        serviceCreate($_POST);
+    }
+    if (array_search(!null, validateur($_POST))) {
+        $erreurform = validateur($_POST);
+    }
+}
+if (isset($_POST['validation'])) {
+    if ($_POST['validation'] === 'val') {
+        serviceDelete($_POST);
+    }
+} 
+dump(connexion());
 ?>
 
 
@@ -25,7 +48,6 @@ $pageMain1 = '';
 </head>
 
 <?php
-
 ob_start();
 path($pathway, $adress[1]);
 $pageMain = ob_get_clean();

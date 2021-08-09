@@ -1,5 +1,4 @@
 <?php 
-pageAdmin();
 $erreurform = '';
 $data = targetEdit();
 if(!empty($_FILES)) {
@@ -18,7 +17,7 @@ if (isset($_POST['titre'])) {
     }
 }
 
-dump($data);
+dump($data, $_FILES);
 ?>
     <?=edit_html($erreurform);?>   
     <?=service_html($data);?>

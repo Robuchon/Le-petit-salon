@@ -98,4 +98,5 @@ function serviceDelete ($data) {
     $query = $pdo->prepare("DELETE FROM $type WHERE key='$key'");
     $query->execute();
     header("location: /admin");
+    exit;
 }

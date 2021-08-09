@@ -172,13 +172,18 @@ function edit_html($erreur = null) {
                         <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
                         <input type="text"  name='supplement' value="$supplement">
                     </div>
-                    <div class='form-ligne'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name='img' enctype="multipart/form-data" accept=".jpg, .jpeg, .png">
-                    </div>
                     <div class='form-gtext'>
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
                         <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
+                    </div>    
+                    <button class="btn">Créer</button>
+                </form>
+            </article>
+            <article class="card-form">
+                <form action="" method="post">
+                    <div class='form-ligne'>
+                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
+                        <input type="file"  name='img' enctype="multipart/form-data" accept=".jpg, .jpeg, .png">
                     </div>    
                     <button class="btn">Créer</button>
                 </form>
