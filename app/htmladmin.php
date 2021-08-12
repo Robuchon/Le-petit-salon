@@ -40,7 +40,7 @@ function create_html($type, $erreur = null) {
     <<<HTML
         <main class="main">
             <article class="card-form">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
                         <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
                         <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
@@ -82,7 +82,7 @@ function create_html($type, $erreur = null) {
     <<<HTML
         <main class="main">
             <article class="card-form">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
                         <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
                         <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
@@ -95,26 +95,30 @@ function create_html($type, $erreur = null) {
                         <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[2]</p>
                         <input type="text" name='produit' placeholder='cathegorie de service'>
                     </div>
-                    <div class="form-ptext">
-                        <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='temps' placeholder='ex : 30'>
-                    </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[4]</p>
+                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[3]</p>
                         <input type="number" name='prix' placeholder='ex : 25'>
                     </div>
-                    <div class='form-ligne'>
-                        <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
-                        <input type="text"  name='supplement' placeholder='Supplement'>
+                    <div class="form-ptext">
+                        <p class="form-edit">Promotion</p> <p class='form-erreur'>$erreur[4]</p>
+                        <input type="number" name='promotion' placeholder='ex : 30'>
                     </div>
                     <div class='form-gtext'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <textarea name="img" id="" cols="" rows="4"></textarea>
-                    </div>
-                    <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
+                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[5]</p>
                         <textarea name="affichage" id="" cols="" rows="4"></textarea>
-                    </div>    
+                    </div>
+                    <div class='form-ptext'>
+                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
+                        <input type="file"  name='img'>
+                    </div>
+                    <div class='form-ptext'>
+                        <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[7]</p>
+                        <br>
+                        <select name="enstock">
+                            <option value="oui">oui</option>
+                            <option value="non">non</option>
+                        </select>
+                    </div>
                     <button class="btn">Créer</button>
                 </form>
             </article> 
@@ -135,22 +139,37 @@ function edit_html($erreur = null) {
     }
     $uri = adress();
     $type = $uri[3];
-    $service = targetEdit();
-    $titre = $service['titre'];
-    $services = $service['services'];
-    $temps = $service['temps'];
-    $prix = $service['prix'];
-    $img = $service['img'];
-    $supplement = $service['supplement'];
-    $affichage = $service['affichage'];
+    $data = targetEdit();
+    $titre = $data['titre'];
+    $promo = '';
+    if (isset($data['promo'])) {
+        $promo = $data['promo'];
+    }
+    $supplement ='';
+    if (isset($data['supplement'])) {
+        $supplement = $data['supplement'];
+    }
+    $services = '';
+    if (isset($data['services'])) {
+        $services = $data['services'];
+    }
+    $temps = '';
+    if (isset($data['temps'])) {
+        $temps = $data['temps'];
+    }
+    $prix = $data['prix'];
+    $affichage = '';
+    if (isset($data['affichage'])) {
+        $affichage = $data['affichage'];
+    }
     $serviceaffichage = 
     <<<HTML
         <main class="main">
             <article class="card-form">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
                         <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
-                        <input type="text"  name='type' readonly="readonly" value="$type">
+                        <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
@@ -172,20 +191,15 @@ function edit_html($erreur = null) {
                         <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
                         <input type="text"  name='supplement' value="$supplement">
                     </div>
+                    <div class='form-ligne'>
+                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
+                        <input type="file"  name="img"> 
+                    </div>
                     <div class='form-gtext'>
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
                         <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
-                    </div>    
-                    <button class="btn">Créer</button>
-                </form>
-            </article>
-            <article class="card-form">
-                <form action="" method="post">
-                    <div class='form-ligne'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name='img' enctype="multipart/form-data" accept=".jpg, .jpeg, .png">
-                    </div>    
-                    <button class="btn">Créer</button>
+                    </div>
+                    <button class="btn">Editer</button>
                 </form>
             </article> 
     HTML;
@@ -193,40 +207,44 @@ function edit_html($erreur = null) {
     <<<HTML
         <main class="main">
             <article class="card-form">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
                         <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
-                        <input type="text"  name='type' readonly="readonly" value="$type" value="$type">
+                        <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
-                        <input type="text" name='titre' value='$titre'>
+                        <input type="text" name='titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Servi</p> <p class='form-erreur'>$erreur[2]</p>
-                        <input type="text" name='services' value='$services'>
+                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[2]</p>
+                        <input type="text" name='produit' value="$services">
+                    </div>
+                    <div class='form-ptext'>
+                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[3]</p>
+                        <input type="number" name='prix' value="$prix">
                     </div>
                     <div class="form-ptext">
-                        <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='temps' value='$temps'>
+                        <p class="form-edit">Promotion</p> <p class='form-erreur'>$erreur[4]</p>
+                        <input type="number" name='promo' value="$promo">
+                    </div>
+                    <div class='form-gtext'>
+                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[5]</p>
+                        <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[4]</p>
-                        <input type="number" name='prix' value='$prix'>
-                    </div>
-                    <div class='form-ligne'>
-                        <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
-                        <input type="text"  name='supplement' value='$supplement'>
-                    </div>
-                    <div class='form-gtext'>
                         <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <textarea name="img" id="" cols="" rows="4">$img</textarea>
+                        <input type="file"  name="img">
                     </div>
-                    <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
-                        <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
-                    </div>    
-                    <button class="btn">Créer</button>
+                    <div class='form-ptext'>
+                        <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[7]</p>
+                        <br>
+                        <select name="enstock">
+                            <option value="oui">oui</option>
+                            <option value="non">non</option>
+                        </select>
+                    </div>
+                    <button class="btn">Editer</button>
                 </form>
             </article> 
     HTML;

@@ -45,11 +45,12 @@ define('VALIDATEUR',
         [
         'type' =>       ['NonVide', 'Mot'],
         'titre' =>      ['NonVide', 'AlphaNum'],
-        'produit' =>    ['NonVide', 'Match', 'Mot'],
+        'produit' =>    ['Vide'],
         'prix' =>       ['Nombre'],
-        'promo' =>      ['Nombre'],
+        'promo' =>      ['Vide'],
         'img' =>        ['Vide'],
-        'affichage' =>  ['AlphaNum']
+        'affichage' =>  ['AlphaNum'],
+        'enstock' =>    ['OuiNon']
         ]
     ]
 );

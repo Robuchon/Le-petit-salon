@@ -1,12 +1,24 @@
 <?php
 
-function service_html( $service ) { 
+function card_html ($data) {
+    $uri = adress();
+    if ($uri[3] === 'service') {
+        return service_html($data);
+    }
+    if ($uri[3] === 'produit') {
+        return pro_html($data);
+    }
+}
+
+function service_html( $service) { 
     $title = $service['titre'] ;
     $temps = $service['temps'];
     $prix = $service['prix'] ;
-    $photo = $service['img'];
+    $photo = '/img/';
+    $photo .= $service['img'];
+    $photo .= '.jpg';
     $supplement = $service['supplement'];
-    $commentaire = nl2br(htmlentities($service['affichage']));
+    $affichage = nl2br(htmlentities($service['affichage']));
     return 
     <<<HTML
             <article class="card-service">
@@ -19,7 +31,7 @@ function service_html( $service ) {
                 </header>
                 <div class="card-description-service">
                     <img src="$photo" alt="" class="card-image-service">
-                    <p class="com-service">$commentaire</p> 
+                    <p class="com-service">$affichage</p> 
                 </div>
                 <footer class="card-footer">
                     <a href="#" class="footer-question">Question</a>
@@ -27,14 +39,16 @@ function service_html( $service ) {
                 </footer>
             </article>   
     HTML; 
-    }
+}
 
 function pro_html(array $produit): string {
     $title = $produit['titre'] ;
     $prix = $produit['prix'] ;
     $reduction = $produit['promo'];
-    $photo = $produit['img'];
-    $commentaire = nl2br(htmlentities($produit['description']));
+    $photo = '/img/';
+    $photo .= $produit['img'];
+    $photo .= '.jpg';
+    $affichage = nl2br(htmlentities($produit['affichage']));
     $line = '';
     if (!empty($reduction)) {
         $reduction = "<div class='card-prix'>$reduction € </div>";
@@ -52,7 +66,7 @@ function pro_html(array $produit): string {
                 </header>
                 <div class="card-description-service">
                     <img src="{$photo}" alt="" class="card-image-service">
-                    <p class="com-service">$commentaire</p> 
+                    <p class="com-service">$affichage</p> 
                 </div>
                 <footer class="card-footer">
                     <a href="#" class="footer-question">Question</a>
@@ -60,7 +74,7 @@ function pro_html(array $produit): string {
                 </footer>
             </article>
     HTML;
-    }
+}
     
 function nav_item(string $lien, string $titre): string { 
     $adress = adress();

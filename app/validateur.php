@@ -26,7 +26,7 @@ function validStock($data) {
 }
 
 function validAlphaNum($data) {
-    if (!preg_match("/^([-,+'€.\w+\s])+$/i", $data)) {
+    if (!preg_match("/^([-,+'’€().éàè!\w+\s])+$/i", $data)) {
         return "c'est pas de l'alphanum";
     };
 }
@@ -60,4 +60,11 @@ function validVide () {
     return;
 }
 
+function validOuiNon($data) {
+    if ($data = 'oui' || $data = 'non') {
+        return ;
+    } else {
+        return "info non valide";
+    }
     
+}   

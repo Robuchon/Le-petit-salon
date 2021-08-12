@@ -1,26 +1,22 @@
 <?php 
 $erreurform = '';
-$data = targetEdit();
-if(!empty($_FILES)) {
-    $img = $_FILES;
-    $type = $_POST['type'];
-    $key = $data['key'];
-    $name = "$type-$key";
-    move_uploaded_file($img['tmp_name'], "$pathway/img/$name");
-}
 if (isset($_POST['titre'])) {
+    if (isset($_FILES['img'])) {
+        $_POST['img'] = $_FILES['img'];
+    }
     if (!array_search(!null, validateur($_POST))) {
-        serviceEdit($_POST);
+        serviceEdit($_POST, $_FILES, $pathway);
     }
     if (array_search(!null, validateur($_POST))) {
         $erreurform = validateur($_POST);
     }
+    
 }
 
-dump($data, $_FILES);
+$data = targetEdit();
 ?>
     <?=edit_html($erreurform);?>   
-    <?=service_html($data);?>
+    <?=card_html($data);?>
     <?=suppr_html($data);?>
     
 </main>

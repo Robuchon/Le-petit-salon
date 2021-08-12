@@ -37,43 +37,69 @@ function targetProduit (): array {
 
 function targetPromo (): array { 
     $pdo = getPDO();
-    $query = $pdo->query("SELECT * FROM produit WHERE promo = !null");
+    $query = $pdo->query("SELECT * FROM produit WHERE promo != ''");
     return $query->fetchALL();
     }
 
-function targetEdit ($valeur = null) {
+function targetEdit ($key = null) {
     $pdo = getPDO();
     $uri = adress();
-    if (is_null($valeur)) {
+    if (is_null($key)) {
         if (!empty($uri[4])){
-            $valeur = $uri[4];
+            $key = $uri[4];
         }
         if (empty($uri[4])){
-            $valeur = $pdo->lastInsertId();
+            $key = $pdo->lastInsertId();
         }
     }
-    $query = $pdo->query("SELECT * FROM service WHERE key='$valeur'");
+$valeur = $uri[3];
+    $query = $pdo->query("SELECT * FROM $valeur WHERE key='$key'");
     return $query->fetch();
 }
 
-function serviceEdit ($data) {    
+function serviceEdit ($data, $file = null, $pathway) {    
     $pdo = getPDO();
     $uri = adress();
     $valeur = $uri[4];
     $type = $uri[3];
-    $query = $pdo->prepare("UPDATE $type SET titre = :titre, services = :services, temps = :temps, prix = :prix, supplement = :supplement, img = :img, affichage = :affichage WHERE key='$valeur' ");
-    $query->execute([
-        'titre' => $data['titre'],
-        'services' => $data['services'],
-        'temps' => $data['temps'],
-        'prix' => $data['prix'],
-        'supplement' => $data['supplement'],
-        'img' => $data['img'],
-        'affichage' => $data['affichage']
-    ]);
+    $img = "$type-$valeur";
+    $produits = 'a faire';
+    if ($type === 'service') {
+        $query = $pdo->prepare("UPDATE $type SET titre = :titre, services = :services, temps = :temps, prix = :prix, supplement = :supplement, img = :img, affichage = :affichage WHERE key='$valeur' ");
+        $query->execute([
+            'titre' => $data['titre'],
+            'services' => $data['services'],
+            'temps' => $data['temps'],
+            'prix' => $data['prix'],
+            'supplement' => $data['supplement'],
+            'img' => $img,
+            'affichage' => $data['affichage']
+        ]);
+    }
+    if ($type === 'produit') {
+        $query = $pdo->prepare("UPDATE $type SET titre = :titre, produits = :produits, promo = :promo, prix = :prix, enstock = :enstock, img = :img, affichage = :affichage WHERE key='$valeur' ");
+        $query->execute([
+            'titre' => $data['titre'],
+            'produits' => $produits,
+            'promo' => $data['promo'],
+            'prix' => $data['prix'],
+            'enstock' => $data['enstock'],
+            'img' => $img,
+            'affichage' => $data['affichage']
+        ]);
+    }
+    if(!empty($file)) {
+        addImg($file, $img, $pathway);
+    }
 }
 
-function serviceCreate ($data) {    
+function addImg ($file, $img, $pathway) {
+        $imgsource = $file['img'];
+        $imgtmpname = $imgsource['tmp_name'];
+        move_uploaded_file("$imgtmpname", "$pathway/img/$img.jpg");
+}
+
+function serviceCreate ($data, $file = null, $pathway) {    
     $pdo = getPDO();
     $type = $data['type'];
     $query = $pdo->prepare("INSERT INTO $type (titre, services, temps, prix, supplement, img, affichage) VALUES (:titre, :services, :temps, :prix, :supplement, :img, :affichage)");
@@ -83,20 +109,30 @@ function serviceCreate ($data) {
         'temps' => $data['temps'],
         'prix' => $data['prix'],
         'supplement' => $data['supplement'],
-        'img' => $data['img'],
         'affichage' => $data['affichage']
     ]);
     $id = $pdo->lastInsertId();
-    header("location: /admin/edit/$type/$id");
+    $img = "$type-$id";
+    $query = $pdo->prepare("UPDATE $type SET img = :img WHERE key='$id' ");
+    $query->execute([
+        'img' => $img
+    ]);
+    if(!empty($file)) {
+        addImg($file, $img, $pathway);
+    }
+    header("Location: /admin/edit/$type/$id");
     exit();
 }
 
-function serviceDelete ($data) {
+function serviceDelete ($data, $pathway) {
     $pdo = getPDO();
     $type = $data['type'];
     $key = $data['key'];
     $query = $pdo->prepare("DELETE FROM $type WHERE key='$key'");
     $query->execute();
-    header("location: /admin");
+    $img = "$type-$key";
+    $file = "$pathway/img/$img.jpg";
+    unlink($file);
+    header("Location: /admin");
     exit;
 }

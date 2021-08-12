@@ -1,8 +1,6 @@
-    <?php //dd(targetService()); ?>
-    
     <main class="main">
         <?php foreach(targetService() as $service): ?>
-            <?= service_html($service) ?>
+            <?= service_html($service, $pathway) ?>
         <?php endforeach; ?>
     </main>
     <aside class="aside">
