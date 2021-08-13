@@ -89,7 +89,7 @@ function html_service ($type, $erreur = null, $data = null)
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[prix]</p>
-                        <input type="number" name='prix' placeholder='ex : 25' value="$prix">
+                        <input type="text" name='prix' placeholder='ex : 25' value="$prix">
                     </div>
                     <div class='form-ligne'>
                         <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[supplement]</p>

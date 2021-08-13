@@ -26,8 +26,8 @@ function service_html( $service) {
                     <p class="com-service">$affichage</p> 
                 </div>
                 <footer class="card-footer">
-                    <a href="#" class="footer-question">Question</a>
-                    <a href="#" class="footer-reservation">Réservation</a>
+                    <a href="/contact" class="footer-question">Question</a>
+                    <a href="https://www.planity.com/le-petit-salon-06460-saint-vallier-de-thiey" class="footer-reservation">Réservation</a>
                 </footer>
             </article>
     HTML; 
@@ -62,8 +62,8 @@ function pro_html(array $produit): string {
                     <p class="com-service">$affichage</p> 
                 </div>
                 <footer class="card-footer">
-                    <a href="#" class="footer-question">Question</a>
-                    <a href="#" class="footer-reservation">Réservation</a>
+                    <a href="/contact" class="footer-question">Question</a>
+                    <a href="https://www.planity.com/le-petit-salon-06460-saint-vallier-de-thiey" class="footer-reservation">Réservation</a>
                 </footer>
             </article>
     HTML;
@@ -134,5 +134,49 @@ function nav_item_right(string $lien, string $titre): string {
     }
     return <<<HTML
     <a class="nav-link{$active}" href="{$lien}">$titre</a>
+    HTML;
+}
+
+// rendu HTML de contact
+function contact_html ($erreur = null) {
+    if (empty($erreur)) {
+        $erreur = ["nom" => '', "prenom" => '', "telephone" => '', "mail" => '', "question" => ''];
+    }
+    return <<<HTML
+    <article class="card-service">
+            <header class="card-header">
+                <div src="" alt="" class="card-avatar"></div>
+                <div class="card-title">Nous contacter
+                    <div class="card-prix">Pour toute demande spécifique ou question sur un service ou produit vous pouvez poser votre question ici</div>
+                </div>
+            </header>
+            <form action="" method="post">
+                <div class='form-ptext'>
+                    <p class="form-edit">Votre Nom</p> <p class='form-erreur'>$erreur[nom]</p>
+                    <input type="text" name='nom' placeholder='ex : Dubois'>
+                </div>
+                <div class='form-ptext'>
+                    <p class="form-edit"> et prénom</p> <p class='form-erreur'>$erreur[prenom]</p>
+                    <input type="text" name='prenom' placeholder='ex : maxime'>
+                </div>
+                <div class="form-ptext">
+                    <p class="form-edit">Téléphone</p> <p class='form-erreur'>$erreur[telephone]</p>
+                    <input type="number" name='telephone' placeholder='ex : 0606060606'>
+                </div>
+                <div class='form-ptext'>
+                    <p class="form-edit">E-mail</p> <p class='form-erreur'>$erreur[mail]</p>
+                    <input type="text" name='mail' placeholder='ex : dubois.maxime@mail.fr'>
+                </div>
+                <div class='form-gtext'>
+                    <p class="form-edit">Votre demande</p> <p class='form-erreur'>$erreur[question]</p> <br>
+                    <textarea name="question" id="" cols="" rows="4"></textarea>
+                </div>   
+                <button class="btn">Envoyer</button>
+            </form>
+            <footer class="card-footer">
+                <a href="#" class="footer-question">0492600907</a>
+                <a href="https://www.planity.com/le-petit-salon-06460-saint-vallier-de-thiey" class="footer-reservation">Réservation</a>
+            </footer>
+    </article>
     HTML;
 }

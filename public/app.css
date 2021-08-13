@@ -159,6 +159,16 @@ a {
     margin-right: 10px;
 }
 
+.btn {
+    background-color: rgba(243, 74, 161, 0.33);
+    display: block;
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+    border-color: rgba(243, 74, 161, 0.66);
+    margin-bottom: 5px;
+}
+
 .card-avatar {
     content: '';
     display: inline-block;
