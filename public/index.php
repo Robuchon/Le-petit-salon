@@ -11,6 +11,7 @@ require "$pathway/../app/auth.php";
 $adress = adress();
 $pageMain1 = '';
 $erreurs = '';
+
 if (isset($_POST) && auth($_POST) === 1 ) {
     session_start();
     $_SESSION['connecte'] = auth($_POST);
@@ -23,10 +24,10 @@ if ($adress[1] === 'auth' && connexion() === true) {
     exit;
 }
 $erreurform = '';
+
 if (isset($_POST['titre']) && $adress[2] === 'create') {
     $_POST['img'] = $_FILES['img'];
     if (!array_search(!null, validateur($_POST))) {
-        $type = $_POST['type'];
         serviceCreate($_POST, $_FILES, $pathway);
     }
 }

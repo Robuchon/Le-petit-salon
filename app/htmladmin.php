@@ -33,121 +33,40 @@ function connexion_html ($erreur = null) {
 }
 
 function create_html($type, $erreur = null) {
-    if (empty($erreur)) {
-        $erreur = ["", "", "", "", "", "", "", ""];
-    }
-    $service = 
-    <<<HTML
-        <main class="main">
-            <article class="card-form">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class='form-ligne'>
-                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
-                        <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
-                        <input type="text" name='titre' placeholder='Titre'>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[2]</p>
-                        <input type="text" name='services' placeholder='cathegorie de service'>
-                    </div>
-                    <div class="form-ptext">
-                        <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='temps' placeholder='ex : 30'>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[4]</p>
-                        <input type="number" name='prix' placeholder='ex : 25'>
-                    </div>
-                    <div class='form-ligne'>
-                        <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
-                        <input type="text"  name='supplement' placeholder='Supplement'>
-                    </div>
-                    <div class='form-ligne'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name='img'>
-                    </div>
-                    <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
-                        <textarea name="affichage" id="" cols="" rows="4"></textarea>
-                    </div>    
-                    <button class="btn">Créer</button>
-                </form>
-            </article> 
-        </main>  
-    HTML;
-    $produit = 
-    <<<HTML
-        <main class="main">
-            <article class="card-form">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class='form-ligne'>
-                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
-                        <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
-                        <input type="text" name='titre' placeholder='Titre'>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[2]</p>
-                        <input type="text" name='produit' placeholder='cathegorie de service'>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='prix' placeholder='ex : 25'>
-                    </div>
-                    <div class="form-ptext">
-                        <p class="form-edit">Promotion</p> <p class='form-erreur'>$erreur[4]</p>
-                        <input type="number" name='promotion' placeholder='ex : 30'>
-                    </div>
-                    <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[5]</p>
-                        <textarea name="affichage" id="" cols="" rows="4"></textarea>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name='img'>
-                    </div>
-                    <div class='form-ptext'>
-                        <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[7]</p>
-                        <br>
-                        <select name="enstock">
-                            <option value="oui">oui</option>
-                            <option value="non">non</option>
-                        </select>
-                    </div>
-                    <button class="btn">Créer</button>
-                </form>
-            </article> 
-        </main>  
-    HTML;
     if ($type === 'service') {
-        $type = $service;
+        return html_service($type, $erreur);
     }
     if ($type === 'produit') {
-        $type = $produit;
-    }
-    return $type; 
+        return html_produit($type, $erreur);
+    } 
 }
 
-function edit_html($erreur = null) {
-    if (empty($erreur)) {
-        $erreur = ["", "", "", "", "", "", "", ""];
-    }
+function edit_html() {
     $uri = adress();
     $type = $uri[3];
     $data = targetEdit();
-    $titre = $data['titre'];
-    $promo = '';
-    if (isset($data['promo'])) {
-        $promo = $data['promo'];
+    if (!isset($data['type'])) {
+          $data['type'] = $type;
     }
-    $supplement ='';
-    if (isset($data['supplement'])) {
-        $supplement = $data['supplement'];
+    if (empty($erreur)) {
+        $erreur = validateur($data, $type);
+    }
+    if ($type === 'service') {
+        return html_service($type, $erreur, $data);
+    }
+    if ($type === 'produit') {
+        return html_produit($type, $erreur, $data);
+    }
+}
+
+function html_service ($type, $erreur = null, $data = null) {
+    $titre = '';
+    if (isset($data['titre'])) {
+        $titre = $data['titre'];
+    }
+    $services = '';
+    if (isset($data['services'])) {
+        $services = $data['services'];
     }
     $services = '';
     if (isset($data['services'])) {
@@ -157,104 +76,151 @@ function edit_html($erreur = null) {
     if (isset($data['temps'])) {
         $temps = $data['temps'];
     }
-    $prix = $data['prix'];
+    $prix = '';
+    if (isset($data['prix'])) {
+        $prix = $data['prix'];
+    }
+    $supplement = '';
+    if (isset($data['supplement'])) {
+        $supplement = $data['supplement'];
+    }
     $affichage = '';
     if (isset($data['affichage'])) {
         $affichage = $data['affichage'];
     }
-    $serviceaffichage = 
+    $img = '';
+    if (isset($data['img'])) {
+        $img = $data['img'];
+    }
+    
+    return
     <<<HTML
         <main class="main">
             <article class="card-form">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
-                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
+                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[type]</p>
                         <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
-                        <input type="text" name='titre' value="$titre">
+                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[titre]</p>
+                        <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[2]</p>
-                        <input type="text" name='services' value="$services">
+                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[services]</p>
+                        <input type="text" name='services' placeholder='cathegorie de service' value="$services">
                     </div>
                     <div class="form-ptext">
-                        <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='temps' value="$temps">
+                        <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[temps]</p>
+                        <input type="number" name='temps' placeholder='ex : 30' value="$temps">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[4]</p>
-                        <input type="number" name='prix' value="$prix">
+                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[prix]</p>
+                        <input type="number" name='prix' placeholder='ex : 25' value="$prix">
                     </div>
                     <div class='form-ligne'>
-                        <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[5]</p>
-                        <input type="text"  name='supplement' value="$supplement">
+                        <p class="form-edit">Supplement</p> <p class='form-erreur'>$erreur[supplement]</p>
+                        <input type="text"  name='supplement' placeholder='Supplement' value="$supplement">
                     </div>
                     <div class='form-ligne'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name="img"> 
+                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[img]</p>
+                        <input type="file"  name='img' value="$img">
                     </div>
                     <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[7]</p>
+                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[affichage]</p>
                         <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
-                    </div>
-                    <button class="btn">Editer</button>
+                    </div>    
+                    <button class="btn">Créer</button>
                 </form>
             </article> 
+        </main>  
     HTML;
-    $produitaffichage = 
+}
+
+function html_produit ($type, $erreur = null, $data = null) {
+    if (empty($erreur)) {
+        $erreur = ["type" => '', "titre" => '', "produits" => '', "promo" => '', "prix" => '', "enstock" => '', "img" => '', "affichage" => ''];
+    }
+    $selectedoui = '';
+    $selectednon = '';
+    $titre = '';
+    if (isset($data['titre'])) {
+        $titre = $data['titre'];
+    }
+    $produits = '';
+    if (isset($data['produits'])) {
+        $produits = $data['produits'];
+    }
+    $promo = '';
+    if (isset($data['promo'])) {
+        $promo = $data['promo'];
+    }
+    $prix = '';
+    if (isset($data['prix'])) {
+        $prix = $data['prix'];
+    }
+    if (isset($data['enstock'])) {
+        $select = $data['enstock'];
+        if ($select === 'oui') {
+            $selectedoui = 'selected';
+        } else {
+            $selectednon = 'selected';
+        }
+    }
+    $affichage = '';
+    if (isset($data['affichage'])) {
+        $affichage = $data['affichage'];
+    }
+    $img = '';
+    if (isset($data['img'])) {
+        $img = $data['img'];
+    }
+    return
     <<<HTML
         <main class="main">
             <article class="card-form">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class='form-ligne'>
-                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[0]</p>
+                        <p class="form-edit">Type</p> <p class='form-erreur'>$erreur[type]</p>
                         <input type="text"  name='type' readonly="readonly" placeholder="$type" value="$type">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[1]</p>
-                        <input type="text" name='titre' value="$titre">
+                        <p class="form-edit">Titre</p> <p class='form-erreur'>$erreur[titre]</p>
+                        <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[2]</p>
-                        <input type="text" name='produit' value="$services">
+                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[produits]</p>
+                        <input type="text" name='produits' placeholder='cathegorie de produit' value="$produits">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[3]</p>
-                        <input type="number" name='prix' value="$prix">
+                        <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[prix]</p>
+                        <input type="number" name='prix' placeholder='ex : 25' value="$prix">
                     </div>
                     <div class="form-ptext">
-                        <p class="form-edit">Promotion</p> <p class='form-erreur'>$erreur[4]</p>
-                        <input type="number" name='promo' value="$promo">
+                        <p class="form-edit">Promotion</p> <p class='form-erreur'>$erreur[promo]</p>
+                        <input type="number" name='promo' placeholder='ex : 30' value="$promo">
                     </div>
                     <div class='form-gtext'>
-                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[5]</p>
+                        <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[affichage]</p>
                         <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[6]</p>
-                        <input type="file"  name="img">
+                        <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[img]</p>
+                        <input type="file"  name='img' value="$img">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[7]</p>
+                        <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[enstock]</p>
                         <br>
                         <select name="enstock">
-                            <option value="oui">oui</option>
-                            <option value="non">non</option>
+                            <option value="oui" $selectedoui>oui</option>
+                            <option value="non" $selectednon>non</option>
                         </select>
                     </div>
-                    <button class="btn">Editer</button>
+                    <button class="btn">Créer</button>
                 </form>
             </article> 
+        </main>  
     HTML;
-    if ($type === 'service') {
-        $type = $serviceaffichage;
-    }
-    if ($type === 'produit') {
-        $type = $produitaffichage;
-    }
-    return $type; 
 }
 
 function type_html () {
@@ -281,7 +247,7 @@ function suppr_html ($data) {
     $key = $data['key'];
     return
     <<<HTML
-        <form action="/admin/suppr" method="post">
+        <form action="/admin/suppr/$type" method="post">
             <input type="hidden"  name='type' readonly="readonly" value="$type">
             <input type="hidden"  name='key' readonly="readonly" value="$key">
             <button>Supprimer</button>

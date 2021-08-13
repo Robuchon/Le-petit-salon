@@ -34,7 +34,7 @@ define('VALIDATEUR',
         [
         'type' =>       ['NonVide', 'Mot'],
         'titre' =>      ['NonVide', 'AlphaNum'],
-        'services' =>   ['NonVide', 'Match', 'Mot'],
+        'services' =>   ['NonVide', 'Mot'],
         'temps' =>      ['Nombre'],
         'prix' =>       ['Nombre'],
         'supplement' => ['AlphaNum'],
@@ -44,12 +44,12 @@ define('VALIDATEUR',
     'produit' =>
         [
         'type' =>       ['NonVide', 'Mot'],
-        'titre' =>      ['NonVide', 'AlphaNum'],
-        'produit' =>    ['Vide'],
+        'titre' =>      ['AlphaNum', 'NonVide'],
+        'produits' =>   ['Vide'],
         'prix' =>       ['Nombre'],
         'promo' =>      ['Vide'],
-        'img' =>        ['Vide'],
         'affichage' =>  ['AlphaNum'],
+        'img' =>        ['Vide'],
         'enstock' =>    ['OuiNon']
         ]
     ]

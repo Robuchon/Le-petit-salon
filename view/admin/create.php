@@ -1,7 +1,7 @@
 <?php
 $erreurform = '';
 if (isset($_POST['titre']) && $adress[2] === 'create') {
-    if (array_search(!null, validateur($_POST))) {
+    if (array_search(!'', validateur($_POST))) {
         $erreurform = validateur($_POST);
     }
 }

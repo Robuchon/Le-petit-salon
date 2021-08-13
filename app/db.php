@@ -35,7 +35,19 @@ function targetProduit (): array {
     return $query->fetchALL();
     }
 
+function targetProduitAdmin (): array { 
+    $pdo = getPDO();
+    $query = $pdo->query("SELECT * FROM produit");
+    return $query->fetchALL();
+    }
+
 function targetPromo (): array { 
+    $pdo = getPDO();
+    $query = $pdo->query("SELECT * FROM produit WHERE promo != '' AND enstock='oui'");
+    return $query->fetchALL();
+    }
+
+function targetPromoAdmin (): array { 
     $pdo = getPDO();
     $query = $pdo->query("SELECT * FROM produit WHERE promo != ''");
     return $query->fetchALL();
@@ -102,15 +114,28 @@ function addImg ($file, $img, $pathway) {
 function serviceCreate ($data, $file = null, $pathway) {    
     $pdo = getPDO();
     $type = $data['type'];
-    $query = $pdo->prepare("INSERT INTO $type (titre, services, temps, prix, supplement, img, affichage) VALUES (:titre, :services, :temps, :prix, :supplement, :img, :affichage)");
-    $query->execute([
-        'titre' => $data['titre'],
-        'services' => $data['services'],
-        'temps' => $data['temps'],
-        'prix' => $data['prix'],
-        'supplement' => $data['supplement'],
-        'affichage' => $data['affichage']
-    ]);
+    if ($type === 'service') {
+        $query = $pdo->prepare("INSERT INTO $type (titre, services, temps, prix, supplement, img, affichage) VALUES (:titre, :services, :temps, :prix, :supplement, :img, :affichage)");
+        $query->execute([
+            'titre' => $data['titre'],
+            'services' => $data['services'],
+            'temps' => $data['temps'],
+            'prix' => $data['prix'],
+            'supplement' => $data['supplement'],
+            'affichage' => $data['affichage']
+        ]);
+    } 
+    if ($type === 'produit') {
+        $query = $pdo->prepare("INSERT INTO $type (titre, produits, promo, prix, enstock, img, affichage) VALUES (:titre, :produits, :promo, :prix, :enstock, :img, :affichage)");
+        $query->execute([
+            'titre' => $data['titre'],
+            'produits' => $data['produits'],
+            'promo' => $data['promo'],
+            'prix' => $data['prix'],
+            'enstock' => $data['enstock'],
+            'affichage' => $data['affichage']
+        ]);
+    }   
     $id = $pdo->lastInsertId();
     $img = "$type-$id";
     $query = $pdo->prepare("UPDATE $type SET img = :img WHERE key='$id' ");

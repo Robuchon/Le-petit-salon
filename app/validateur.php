@@ -1,6 +1,6 @@
 <?php
 
-function validateur($data) {
+/*function validateur($data) {
     $type = $data['type'];
     $valid = VALIDATEUR;
     $validateurs = $valid["$type"];
@@ -9,6 +9,35 @@ function validateur($data) {
         $fonction .= "$key[0]";
         $result[] = call_user_func($fonction, $data[$validateur]);
     } 
+    return $result;                  
+}*/
+
+function validateur($data, $type = null) {
+    $valid = VALIDATEUR;
+    if (!isset($type)) {
+        $type = $data['type'];
+  }
+    $validateurs = $valid["$type"];
+    foreach ($validateurs as $validateur => $key) {
+        $fonction = 'valid';
+        $fonction .= "$key[0]";
+        $result["$validateur"] = call_user_func($fonction, $data[$validateur]);
+        if (isset($key[1])) {
+            $fonction = 'valid';
+            $fonction .= "$key[1]";
+            $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
+        }
+        if (isset($key[2])) {
+            $fonction = 'valid';
+            $fonction .= "$key[2]";
+            $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
+        }
+        if (isset($key[3])) {
+            $fonction = 'valid';
+            $fonction .= "$key[3]";
+            $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
+        }
+    }
     return $result;                  
 }
 
@@ -26,7 +55,7 @@ function validStock($data) {
 }
 
 function validAlphaNum($data) {
-    if (!preg_match("/^([-,+'’€().éàè!\w+\s])+$/i", $data)) {
+    if (!preg_match("/^([-,+'’€&().éàè!\w+\s])+$/i", $data)) {
         return "c'est pas de l'alphanum";
     };
 }

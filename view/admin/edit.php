@@ -7,16 +7,13 @@ if (isset($_POST['titre'])) {
     if (!array_search(!null, validateur($_POST))) {
         serviceEdit($_POST, $_FILES, $pathway);
     }
-    if (array_search(!null, validateur($_POST))) {
-        $erreurform = validateur($_POST);
-    }
-    
 }
 
 $data = targetEdit();
 ?>
-    <?=edit_html($erreurform);?>   
+    <?=edit_html();?>   
     <?=card_html($data);?>
     <?=suppr_html($data);?>
     
 </main>
+<?php dump($erreurform);
