@@ -1,4 +1,5 @@
 <?php
+// verification du status return BOOL
 function connexion (): bool {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -6,13 +7,20 @@ function connexion (): bool {
     return !empty($_SESSION['connecte']);
 }
 
+// verification de l'etat de connexion avec redirection
 function pageAdmin () {
     if (connexion() === false) {
         header ('Location: /auth');
         exit;
     }
+    if (connexion() === true) {
+        header ('Location: /admin');
+        exit;
+    }
 }
 
+// fonction d'authentification
+// a finir pour le MDP
 function auth ($auth) {
     $erreurs = [];
     $user = 'a';

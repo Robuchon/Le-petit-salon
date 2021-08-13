@@ -5,7 +5,7 @@ if (isset($_POST['titre'])) {
         $_POST['img'] = $_FILES['img'];
     }
     if (!array_search(!null, validateur($_POST))) {
-        serviceEdit($_POST, $_FILES, $pathway);
+        edit($_POST, $_FILES, $pathway);
     }
 }
 
@@ -13,7 +13,5 @@ $data = targetEdit();
 ?>
     <?=edit_html();?>   
     <?=card_html($data);?>
-    <?=suppr_html($data);?>
-    
+    <?=suppr_html($data);?>  
 </main>
-<?php dump($erreurform);

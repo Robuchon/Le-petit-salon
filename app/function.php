@@ -1,5 +1,6 @@
 <?php 
 
+// fonction pour mon systeme de route avec une route par defaut
 function adress() {
     $uri = $_SERVER['REQUEST_URI'];
     $adress = explode("/", $uri);
@@ -15,6 +16,7 @@ function adress() {
     return $adress;
 }
 
+// recuperation d'une valeur pour trouvé une categorie
 function targetValeur () {
     $adress = adress();
     $services = 'brushing';
@@ -30,6 +32,7 @@ function targetValeur () {
     return $services;
 }
 
+// chemin pour la premier zone d'affichage
 function path(string $pathway, string $adress) {
     $filename = "$pathway/../view/$adress.php";
     if (file_exists($filename)) {
@@ -38,6 +41,7 @@ function path(string $pathway, string $adress) {
     }
 }
 
+// chemin pour la deuxieme zone d'affichage
 function subpath(string $pathway, string $adress, string $subadress) {
     $filename = "$pathway/../view/$adress/$subadress.php";
     if (file_exists($filename)) {
@@ -46,6 +50,7 @@ function subpath(string $pathway, string $adress, string $subadress) {
     }
 }
 
+// retour du HTML qui fait les plages horraires d'ouvertures
 function creneaux_html (array $creneaux) {
     if (empty($creneaux)) {
         return 'Fermé';
@@ -56,12 +61,54 @@ function creneaux_html (array $creneaux) {
     return $phrases;
 }
 
-function in_creneaux ($heure, $creneaux) 
-{
+// retour d'un bool pour savoir si on est dans le creneau
+function in_creneaux ($jour): BOOL {
+    $heure = (int)($_GET['heure'] ?? date('G'));
+    $creneaux = CRENEAUX[$jour];
     foreach ($creneaux as $creneau) {
         if ($heure >= $creneau[0] && $heure < $creneau[1]) {
             return true;
         }
     }
     return false;
+}
+
+// aiguillage pour le rendu HTML coté visiteur
+function card_html ($data) {
+    $uri = adress();
+    if ($uri[3] === 'service') {
+        return service_html($data);
+    }
+    if ($uri[3] === 'produit') {
+        return pro_html($data);
+    }
+}
+
+// aiguillage pour le rendu HTML coté admin creation
+function create_html($type, $erreur = null) {
+    if ($type === 'service') {
+        return html_service($type, $erreur);
+    }
+    if ($type === 'produit') {
+        return html_produit($type, $erreur);
+    } 
+}
+
+// aiguillage pour le rendu HTML coté admin edition
+function edit_html() {
+    $uri = adress();
+    $type = $uri[3];
+    $data = targetEdit();
+    if (!isset($data['type'])) {
+          $data['type'] = $type;
+    }
+    if (empty($erreur)) {
+        $erreur = validateur($data, $type);
+    }
+    if ($type === 'service') {
+        return html_service($type, $erreur, $data);
+    }
+    if ($type === 'produit') {
+        return html_produit($type, $erreur, $data);
+    }
 }

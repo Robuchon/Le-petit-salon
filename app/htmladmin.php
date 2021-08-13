@@ -1,5 +1,6 @@
 <?php
 
+// rendu HTML pour la connexion
 function connexion_html ($erreur = null) {
     $usererreur = '';
     $passerreur = '';
@@ -32,45 +33,18 @@ function connexion_html ($erreur = null) {
     HTML;
 }
 
-function create_html($type, $erreur = null) {
-    if ($type === 'service') {
-        return html_service($type, $erreur);
+// rendu HTML formulaire service admin
+function html_service ($type, $erreur = null, $data = null) 
+    {if (empty($erreur)) {
+        $erreur = ["type" => '', "titre" => '', "categorie" => '', "temps" => '', "prix" => '', "supplement" => '', "img" => '', "affichage" => ''];
     }
-    if ($type === 'produit') {
-        return html_produit($type, $erreur);
-    } 
-}
-
-function edit_html() {
-    $uri = adress();
-    $type = $uri[3];
-    $data = targetEdit();
-    if (!isset($data['type'])) {
-          $data['type'] = $type;
-    }
-    if (empty($erreur)) {
-        $erreur = validateur($data, $type);
-    }
-    if ($type === 'service') {
-        return html_service($type, $erreur, $data);
-    }
-    if ($type === 'produit') {
-        return html_produit($type, $erreur, $data);
-    }
-}
-
-function html_service ($type, $erreur = null, $data = null) {
     $titre = '';
     if (isset($data['titre'])) {
         $titre = $data['titre'];
     }
-    $services = '';
-    if (isset($data['services'])) {
-        $services = $data['services'];
-    }
-    $services = '';
-    if (isset($data['services'])) {
-        $services = $data['services'];
+    $categorie = '';
+    if (isset($data['categorie'])) {
+        $categorie = $data['categorie'];
     }
     $temps = '';
     if (isset($data['temps'])) {
@@ -92,7 +66,6 @@ function html_service ($type, $erreur = null, $data = null) {
     if (isset($data['img'])) {
         $img = $data['img'];
     }
-    
     return
     <<<HTML
         <main class="main">
@@ -107,8 +80,8 @@ function html_service ($type, $erreur = null, $data = null) {
                         <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[services]</p>
-                        <input type="text" name='services' placeholder='cathegorie de service' value="$services">
+                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[categorie]</p>
+                        <input type="text" name='categorie' placeholder='cathegorie de service' value="$categorie">
                     </div>
                     <div class="form-ptext">
                         <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[temps]</p>
@@ -132,14 +105,14 @@ function html_service ($type, $erreur = null, $data = null) {
                     </div>    
                     <button class="btn">Créer</button>
                 </form>
-            </article> 
-        </main>  
+            </article>
     HTML;
 }
 
+// rendu HTML formulaire produit admin
 function html_produit ($type, $erreur = null, $data = null) {
     if (empty($erreur)) {
-        $erreur = ["type" => '', "titre" => '', "produits" => '', "promo" => '', "prix" => '', "enstock" => '', "img" => '', "affichage" => ''];
+        $erreur = ["type" => '', "titre" => '', "categorie" => '', "promo" => '', "prix" => '', "enstock" => '', "img" => '', "affichage" => ''];
     }
     $selectedoui = '';
     $selectednon = '';
@@ -147,9 +120,9 @@ function html_produit ($type, $erreur = null, $data = null) {
     if (isset($data['titre'])) {
         $titre = $data['titre'];
     }
-    $produits = '';
-    if (isset($data['produits'])) {
-        $produits = $data['produits'];
+    $categorie = '';
+    if (isset($data['categorie'])) {
+        $categorie = $data['categorie'];
     }
     $promo = '';
     if (isset($data['promo'])) {
@@ -189,8 +162,8 @@ function html_produit ($type, $erreur = null, $data = null) {
                         <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[produits]</p>
-                        <input type="text" name='produits' placeholder='cathegorie de produit' value="$produits">
+                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[categorie]</p>
+                        <input type="text" name='categorie' placeholder='cathegorie de produit' value="$categorie">
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[prix]</p>
@@ -218,11 +191,11 @@ function html_produit ($type, $erreur = null, $data = null) {
                     </div>
                     <button class="btn">Créer</button>
                 </form>
-            </article> 
-        </main>  
+            </article>
     HTML;
 }
 
+// rendu HTML formulaire type admin
 function type_html () {
     return
     <<<HTML
@@ -241,6 +214,7 @@ function type_html () {
     HTML; 
 }
 
+// rendu HTML suppression admin
 function suppr_html ($data) {
     $uri = adress();
     $type = $uri[3];
@@ -255,6 +229,7 @@ function suppr_html ($data) {
     HTML;
 }
 
+// rendu HTML validation suppression admin
 function val_Suppr_html ($data) {
     $type = $data['type'];
     $key = $data['key'];

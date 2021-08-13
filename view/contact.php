@@ -1,13 +1,4 @@
 <?php
-date_default_timezone_set('Europe/Paris');
-$heure = (int)($_GET['heure'] ?? date('G'));
-$jour = (int)($_GET['jour'] ?? date('N') - 1);
-$creneaux = CRENEAUX[$jour];
-$ouvert = in_creneaux($heure, $creneaux);
-$color = 'green';
-if (!$ouvert) {
-    $color = 'red';
-}
 ?>
 <div class="container">
     <main class="main">
@@ -43,15 +34,8 @@ if (!$ouvert) {
                 <p>Horaires d'ouverture</p>
                 <table class="horaire">
                     <tbody class="table-horaire">
-                        <?php foreach(JOURS as $k => $jour): ?>
-                            <tr class="trb"<?php if ( $k + 1 === (int)date('N')): ?> style="color:<?= $color; ?>" <?php endif ?>>
-                                <td>
-                                    <strong><?= $jour ?></strong>
-                                </td>
-                                <td>
-                                    <?= creneaux_html(CRENEAUX[$k])?>
-                                </td>
-                            </tr>
+                        <?php foreach(horraire_html() as $horraire): ?>
+                            <?= $horraire ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -1,15 +1,7 @@
 <?php
 
-function card_html ($data) {
-    $uri = adress();
-    if ($uri[3] === 'service') {
-        return service_html($data);
-    }
-    if ($uri[3] === 'produit') {
-        return pro_html($data);
-    }
-}
 
+// rendu HTML service
 function service_html( $service) { 
     $title = $service['titre'] ;
     $temps = $service['temps'];
@@ -25,7 +17,7 @@ function service_html( $service) {
                 <header class="card-header">
                     <div src="" alt="" class="card-avatar"></div>
                     <div class="card-title">$title
-                        <div class="card-prix">$temps, à partir de $prix €</div>
+                        <div class="card-prix">$temps min, à partir de $prix €</div>
                         <div class="card-prix">$supplement</div>
                     </div>
                 </header>
@@ -37,10 +29,11 @@ function service_html( $service) {
                     <a href="#" class="footer-question">Question</a>
                     <a href="#" class="footer-reservation">Réservation</a>
                 </footer>
-            </article>   
+            </article>
     HTML; 
 }
 
+// rendu HTML promo et produit
 function pro_html(array $produit): string {
     $title = $produit['titre'] ;
     $prix = $produit['prix'] ;
@@ -75,7 +68,37 @@ function pro_html(array $produit): string {
             </article>
     HTML;
 }
-    
+
+// rendu HTML tableau horraires
+function horraire_html () {
+    $jour = (int)($_GET['jour'] ?? date('N') - 1);
+    $ouvert = in_creneaux($jour);
+    foreach(JOURS as $k => $jour) {
+    $color = '';
+    if ($k + 1 === (int)date('N')) {
+        $color = 'green';
+        if (!$ouvert) {
+            $color = 'red';
+        }
+    }
+    $creneaux = creneaux_html(CRENEAUX[$k]);
+    $horraires [] =
+    <<<HTML
+        <tr class="trb" style="color:$color">
+            <td>
+                <strong>$jour</strong>
+            </td>
+            <td>
+                $creneaux
+            </td>
+        </tr>
+    HTML;
+    unset($color);
+    }
+    return $horraires;
+}
+
+// rendu HTML de la barre du haut avec active si concordance avec URI
 function nav_item(string $lien, string $titre): string { 
     $adress = adress();
     $active = '';
@@ -88,6 +111,7 @@ function nav_item(string $lien, string $titre): string {
     HTML;
 }
 
+// rendu HTML de la barre du gauche avec active si concordance avec URI
 function nav_item_left(string $lien, string $titre): string {
     $adress = adress();
     $active = '';
@@ -100,6 +124,7 @@ function nav_item_left(string $lien, string $titre): string {
     HTML;
 }
 
+// rendu HTML de la barre du droite avec active si concordance avec URI
 function nav_item_right(string $lien, string $titre): string {
     $adress = adress();
     $active = '';
