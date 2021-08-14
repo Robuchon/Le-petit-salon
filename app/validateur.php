@@ -4,38 +4,39 @@
 // et comparaison avec les validateur associé
 function validateur($data, $type = null) {
     $valid = VALIDATEUR;
+    $verification2 = "";
+    $verification3 = "";
     if (!isset($type)) {
         $type = $data['type'];
-  }
+    }
     $validateurs = $valid["$type"];
     foreach ($validateurs as $validateur => $key) {
         $fonction = 'valid';
         $fonction .= "$key[0]";
-        $result["$validateur"] = call_user_func($fonction, $data[$validateur]);
+        $verification = call_user_func($fonction, $data[$validateur]);
+        $verification .= '. ';
         if (isset($key[1])) {
             $fonction = 'valid';
             $fonction .= "$key[1]";
-            if (!call_user_func($fonction, $data[$validateur]) === '') {
-                $result["$validateur"] .= ', ';
-                $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
-            }
+            $verification2 = call_user_func($fonction, $data[$validateur]);
+            $verification2 .= '. ';
         }
         if (isset($key[2])) {
             $fonction = 'valid';
             $fonction .= "$key[2]";
-            if (call_user_func($fonction, $data[$validateur]) !== '') {
-                $result["$validateur"] .= ', ';
-                $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
-            }
+            $verification3 = call_user_func($fonction, $data[$validateur]);
+            $verification3 .= '. ';
         }
-        if (isset($key[3])) {
-            $fonction = 'valid';
-            $fonction .= "$key[3]";
-            if (call_user_func($fonction, $data[$validateur]) !== '') {
-                $result["$validateur"] .= ', ';
-                $result["$validateur"] .= call_user_func($fonction, $data[$validateur]);
-            }
+        if ($verification === '. ') {
+            $verification = null;
         }
+        if ($verification2 === '. ') {
+            $verification2 = null;
+        }
+        if ($verification3 === '. ') {
+            $verification3 = null;
+        }
+        $result["$validateur"] = "$verification$verification2$verification3";
     }
     return $result;                  
 }
@@ -87,13 +88,21 @@ function validNonVide($data) {
 
 // validateur corespondance avec la categorie
 function validMatch($data) {
-    $match = matchService($data['type']);
-    if (!in_array($data, $match)) {
+    $adress = adress();
+    $type = $adress[3];
+    $match = CATEGORIE[$type];
+    if (!array_key_exists($data, $match)) {
         return "c'est pas une categorie valide ";
+    } else {
+        return null;
     };
 }
 
 // validateur peut etre vide
 function validVide () {
+    return;
+}
+
+function validFormatImg () {
     return;
 }

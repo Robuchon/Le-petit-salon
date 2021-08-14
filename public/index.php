@@ -28,7 +28,6 @@ if ($adress[1] === 'admin' && !connexion()) {
 if ($adress[1] === 'auth' && connexion()) {
     pageAdmin();
 }
-
 // une fois un formulaire de création envoyé verification que pas d'erreure
 // si pas d'erreure on crée une entrée dans la base de donnée
 if (isset($_POST['titre']) && $adress[2] === 'create') {
@@ -50,6 +49,10 @@ if ($adress[2] === 'deco') {
     session_start();
     unset($_SESSION['connecte']);
     header('Location: /admin');
+}
+
+if (isset($_POST['mail'])) {
+    mailPreparation($_POST);
 }
 ?>
 

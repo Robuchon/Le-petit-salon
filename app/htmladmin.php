@@ -26,7 +26,7 @@ function connexion_html ($erreur = null) {
                         <p class="form-edit">Mot de passe</p> <p class='form-erreur'>$passerreur</p>
                         <input type="password" name="password">
                     </div>
-                    <button type="submit">Connexion</button>
+                    <button class='btn' type="submit">Connexion</button>
                 </form>
             </article> 
         </main>  
@@ -80,7 +80,7 @@ function html_service ($type, $erreur = null, $data = null)
                         <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Services</p> <p class='form-erreur'>$erreur[categorie]</p>
+                        <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
                         <input type="text" name='categorie' placeholder='cathegorie de service' value="$categorie">
                     </div>
                     <div class="form-ptext">
@@ -97,7 +97,9 @@ function html_service ($type, $erreur = null, $data = null)
                     </div>
                     <div class='form-ligne'>
                         <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[img]</p>
-                        <input type="file"  name='img' value="$img">
+                        <label class="custom-file-upload">
+                            <input type="file" name='img' value="$img">
+                        </label>
                     </div>
                     <div class='form-gtext'>
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[affichage]</p>
@@ -162,7 +164,7 @@ function html_produit ($type, $erreur = null, $data = null) {
                         <input type="text" name='titre' placeholder='Titre' value="$titre">
                     </div>
                     <div class='form-ptext'>
-                        <p class="form-edit">Produit</p> <p class='form-erreur'>$erreur[categorie]</p>
+                        <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
                         <input type="text" name='categorie' placeholder='cathegorie de produit' value="$categorie">
                     </div>
                     <div class='form-ptext'>
@@ -179,15 +181,19 @@ function html_produit ($type, $erreur = null, $data = null) {
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Img</p> <p class='form-erreur'>$erreur[img]</p>
-                        <input type="file"  name='img' value="$img">
+                        <label class="custom-file-upload">
+                            <input type="file" name='img' value="$img">
+                        </label>
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[enstock]</p>
                         <br>
+                        <label class="custom-file-upload">
                         <select name="enstock">
                             <option value="oui" $selectedoui>oui</option>
                             <option value="non" $selectednon>non</option>
                         </select>
+                        </label>
                     </div>
                     <button class="btn">Créer</button>
                 </form>
@@ -202,12 +208,14 @@ function type_html () {
         <main class="main">
             <article class="card-form">
                 <form action="" method="post">
-                    <label for="type-select">Choix du type</label>
-                    <select name="type" id="type-select">
-                        <option value="service">Service</option>
-                        <option value="produit">Produit</option>
-                    </select>  
-                    <button class="btn">valider</button>     
+                    <div class='form-gtext'>
+                        <p class="form-edit">Choix du type</p><br>
+                        <select name="type" id="type-select">
+                            <option value="service">Service</option>
+                            <option value="produit">Produit</option>
+                        </select>  
+                        <button class="btn">valider</button>
+                    </div>     
                 </form>
             </article> 
         </main>   
@@ -224,7 +232,7 @@ function suppr_html ($data) {
         <form action="/admin/suppr/$type" method="post">
             <input type="hidden"  name='type' readonly="readonly" value="$type">
             <input type="hidden"  name='key' readonly="readonly" value="$key">
-            <button>Supprimer</button>
+            <button class='btn'>Supprimer</button>
         </form>
     HTML;
 }
@@ -239,7 +247,7 @@ function val_Suppr_html ($data) {
             <input type="hidden"  name='type' readonly="readonly" value="$type">
             <input type="hidden"  name='key' readonly="readonly" value="$key">
             <input type="hidden"  name='validation' readonly="readonly" value="val">
-            <button>Supprimer</button>
+            <button class='btn'>Supprimer</button>
         </form>
     HTML;
 }

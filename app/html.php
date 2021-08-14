@@ -112,7 +112,7 @@ function nav_item(string $lien, string $titre): string {
 }
 
 // rendu HTML de la barre du gauche avec active si concordance avec URI
-function nav_item_left(string $lien, string $titre): string {
+function nav_item_left (string $lien, string $titre): string {
     $adress = adress();
     $active = '';
     $verif = explode("/", $lien);
@@ -124,8 +124,8 @@ function nav_item_left(string $lien, string $titre): string {
     HTML;
 }
 
-// rendu HTML de la barre du droite avec active si concordance avec URI
-function nav_item_right(string $lien, string $titre): string {
+// generation du HTML de la barre du droite avec active si concordance avec URI
+function nav_item_right (string $lien, $titre): string {
     $adress = adress();
     $active = '';
     $verif = explode("/", $lien);
@@ -135,6 +135,19 @@ function nav_item_right(string $lien, string $titre): string {
     return <<<HTML
     <a class="nav-link{$active}" href="{$lien}">$titre</a>
     HTML;
+}
+
+// rendu barre de droite
+function nav_generate_right () {
+    $adress = adress();
+    $type = $adress[2];
+    $ici = $adress[1];
+    $categories = CATEGORIE[$type];
+    foreach ($categories as $categorie => $key) {
+        $nom = $key[0];
+        $rendu [] = nav_item_right("/$ici/$type/$categorie", "$nom");
+    }
+    return $rendu;
 }
 
 // rendu HTML de contact

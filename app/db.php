@@ -21,7 +21,7 @@ return $query->fetchALL();
 }
 
 // recuperation d'un tableau des categorie distinct
-function matchService ($type): array {
+function matchCategorie ($type): array {
     $pdo = getPDO();
     $query = $pdo->query("SELECT DISTINCT $type FROM categorie");
     return $query->fetchALL();

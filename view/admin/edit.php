@@ -4,14 +4,15 @@ if (isset($_POST['titre'])) {
     if (isset($_FILES['img'])) {
         $_POST['img'] = $_FILES['img'];
     }
-    if (!array_search(!null, validateur($_POST))) {
+    $erreurform = validateur($_POST);
+    if (!array_search(!null, $erreurform)) {
         edit($_POST, $_FILES, $pathway);
     }
 }
 
 $data = targetEdit();
 ?>
-    <?=edit_html();?>   
+    <?=edit_html($erreurform);?>   
     <?=card_html($data);?>
     <?=suppr_html($data);?>  
 </main>

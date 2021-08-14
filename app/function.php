@@ -33,7 +33,7 @@ function targetValeur () {
 }
 
 // chemin pour la premier zone d'affichage
-function path(string $pathway, string $adress) {
+function path (string $pathway, string $adress) {
     $filename = "$pathway/../view/$adress.php";
     if (file_exists($filename)) {
         return (require $filename);
@@ -42,7 +42,7 @@ function path(string $pathway, string $adress) {
 }
 
 // chemin pour la deuxieme zone d'affichage
-function subpath(string $pathway, string $adress, string $subadress) {
+function subpath (string $pathway, string $adress, string $subadress) {
     $filename = "$pathway/../view/$adress/$subadress.php";
     if (file_exists($filename)) {
         return (require $filename);
@@ -95,15 +95,12 @@ function create_html($type, $erreur = null) {
 }
 
 // aiguillage pour le rendu HTML coté admin edition
-function edit_html() {
+function edit_html($erreur = null) {
     $uri = adress();
     $type = $uri[3];
     $data = targetEdit();
     if (!isset($data['type'])) {
           $data['type'] = $type;
-    }
-    if (empty($erreur)) {
-        $erreur = validateur($data, $type);
     }
     if ($type === 'service') {
         return html_service($type, $erreur, $data);
@@ -111,4 +108,20 @@ function edit_html() {
     if ($type === 'produit') {
         return html_produit($type, $erreur, $data);
     }
+}
+
+// preparation du mais avec envoi
+function mailPreparation ($data) {
+    $nom = $data['nom'];
+    $prenom = $data['prenom'];
+    $telephone = $data['telephone'];
+    $mail = $data['mail'];
+    $question = $data['question'];
+    $header = "FROM: $mail";
+    $message = 
+"   Ce message vous a etez envoyé par $nom, $prenom.
+Contactable pas mail a l'adresse $mail ou par telephone au $telephone.
+voici ça question :
+'$question'";
+    mail('robuchon.hugues@', "contact de $nom, $prenom", $message, $header);
 }

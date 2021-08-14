@@ -6,17 +6,9 @@
   
   <aside class="aside">
         <nav class="asidebar">
-            <?= nav_item_right('/admin/service/brushing', 'Brushing Femme'); ?>
-            <?= nav_item_right('/admin/service/coupe', 'Coupes Brushing Femme'); ?>
-            <?= nav_item_right('/admin/service/coloration', 'Coloration Femme'); ?>
-            <?= nav_item_right('/admin/service/meche', 'Mèches - Balayage'); ?>
-            <?= nav_item_right('/admin/service/soin', 'Soins Profond'); ?>         
-            <?= nav_item_right('/admin/service/homme', 'Hommes'); ?>         
-            <?= nav_item_right('/admin/service/enfant', 'Enfants'); ?>         
-            <?= nav_item_right('/admin/service/evenementiel', 'Evénementiel'); ?>         
-            <?= nav_item_right('/admin/service/specal', 'Prestations spécifiques'); ?>         
-            <?= nav_item_right('/admin/service/forfait', 'Forfait'); ?>         
-            <?= nav_item_right('/admin/service/ongle', 'Beauté des Ongles'); ?>         
+            <?php foreach(nav_generate_right() as $lien):?>
+                <?=$lien?>
+            <?php endforeach;?>         
         </nav>
     </aside>
 </div>
