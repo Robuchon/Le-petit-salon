@@ -30,22 +30,24 @@ function matchCategorie ($type): array {
 // recuperation d'un tableau pour l'affichage des services par categorie
 function targetService (): array { 
     $pdo = getPDO();
-    $valeur = targetValeur();
-    $query = $pdo->query("SELECT * FROM service WHERE categorie='$valeur'");
+    $categorie = targetCategorie();
+    $query = $pdo->query("SELECT * FROM service WHERE categorie='$categorie'");
     return $query->fetchALL();
     }
 
 // recuperation d'un tableau pour l'affichage des produits par stock
 function targetProduit (): array { 
     $pdo = getPDO();
-    $query = $pdo->query("SELECT * FROM produit WHERE enstock='oui'");
+    $categorie = targetCategorie();
+    $query = $pdo->query("SELECT * FROM produit WHERE enstock='oui' AND categorie='$categorie'");
     return $query->fetchALL();
     }
 
 // recuperation d'un tableau pour l'affichage des produits par promo et stock
 function targetPromo (): array { 
     $pdo = getPDO();
-    $query = $pdo->query("SELECT * FROM produit WHERE promo != '' AND enstock='oui'");
+    $categorie = targetCategorie();
+    $query = $pdo->query("SELECT * FROM produit WHERE promo != '' AND enstock='oui' AND categorie='$categorie'");
     return $query->fetchALL();
     }
 
@@ -100,11 +102,10 @@ function edit ($data, $file = null, $pathway) {
         ]);
     }
     if ($type === 'produit') {
-        $produits = 'a faire';
         $query = $pdo->prepare("UPDATE $type SET titre = :titre, categorie = :categorie, promo = :promo, prix = :prix, enstock = :enstock, img = :img, affichage = :affichage WHERE key='$valeur' ");
         $query->execute([
             'titre' => $data['titre'],
-            'categorie' => $produits,
+            'categorie' => $data['categorie'],
             'promo' => $data['promo'],
             'prix' => $data['prix'],
             'enstock' => $data['enstock'],

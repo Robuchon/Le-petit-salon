@@ -11,25 +11,29 @@ function adress() {
         $adress[2] = 'service';
     }
     if (empty($adress[3])) {
-        $adress[3] = 'brushing';
+        if ($adress[2] === 'service') {
+            $adress[3] = 'brushing';
+        }
+        if ($adress[2] === 'produit' || $adress[2] === 'promo') {
+            $adress[3] = 'shampooing';
+        }
     }
+    
     return $adress;
 }
 
 // recuperation d'une valeur pour trouvé une categorie
-function targetValeur () {
+function targetCategorie () {
     $adress = adress();
-    $services = 'brushing';
-    if ($adress[1] === 'accueil') {
-        $services = 'brushing';
-    } 
-    if (array_key_exists(2, $adress) && $adress[2] != 'service') {
-        $services = $adress[2];
+    dump($adress);
+    if (array_key_exists(2, $adress) && $adress[2] != ('service' || 'produit' || 'promo')) {
+        $categorie = $adress[2];
     } 
     if (array_key_exists(3, $adress)) {
-        $services = $adress[3];
+        $categorie = $adress[3];
     }
-    return $services;
+    dump($categorie);
+    return $categorie;
 }
 
 // chemin pour la premier zone d'affichage
@@ -123,5 +127,5 @@ function mailPreparation ($data) {
 Contactable pas mail a l'adresse $mail ou par telephone au $telephone.
 voici ça question :
 '$question'";
-    mail('robuchon.hugues@', "contact de $nom, $prenom", $message, $header);
+    mail('Lepetitsalon06contact@gmail.com', "contact de $nom, $prenom", $message, $header);
 }

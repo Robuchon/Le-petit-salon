@@ -23,8 +23,8 @@ function pageAdmin () {
 // a finir pour le MDP
 function auth ($auth) {
     $erreurs = [];
-    $user = 'a';
-    $password = password_hash('b', PASSWORD_DEFAULT, ['cost' => 12]);
+    $user = 'Melissa';
+    $password = password_hash('Fernandes', PASSWORD_DEFAULT, ['cost' => 12]);
     if (isset($auth['username']) || isset($auth['password'])) {
         if (empty($auth['username'])) {
             $erreurs['username'] = 'Identifiant vide';

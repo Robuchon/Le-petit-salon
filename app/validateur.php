@@ -15,19 +15,19 @@ function validateur($data, $type = null) {
         $fonction .= "$key[0]";
         $verification = call_user_func($fonction, $data[$validateur]);
         $verification .= '. ';
-        if (isset($key[1])) {
+        if (isset($key[1]) && $verification !== 'vide. ') {
             $fonction = 'valid';
             $fonction .= "$key[1]";
             $verification2 = call_user_func($fonction, $data[$validateur]);
             $verification2 .= '. ';
         }
-        if (isset($key[2])) {
+        if (isset($key[2]) && $verification !== 'vide. ') {
             $fonction = 'valid';
             $fonction .= "$key[2]";
             $verification3 = call_user_func($fonction, $data[$validateur]);
             $verification3 .= '. ';
         }
-        if ($verification === '. ') {
+        if ($verification === 'vide. ' || '. ') {
             $verification = null;
         }
         if ($verification2 === '. ') {
@@ -60,7 +60,7 @@ function validOuiNon($data) {
 
 // validateur caractere alphanumerique
 function validAlphaNum($data) {
-    if (!preg_match("/^([-,+'’€&().éàè!\w+\s])+$/i", $data)) {
+    if (!preg_match("/^([-,+'’€&()ôâêî.éàè!\w+\s])+$/i", $data)) {
         return "caractère saisi pas conforme";
     };
 }
@@ -99,8 +99,11 @@ function validMatch($data) {
 }
 
 // validateur peut etre vide
-function validVide () {
-    return;
+function validVide ($data) {
+    if ($data === '') {
+        return 'vide';
+    }
+    
 }
 
 function validFormatImg () {

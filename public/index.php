@@ -70,7 +70,6 @@ if (isset($_POST['mail'])) {
 </head>
 
 <?php
-
 // recuperation de la premier partie de l'affichage dans une varriable
 ob_start();
 path($pathway, $adress[1]);

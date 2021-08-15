@@ -80,7 +80,17 @@ define('CATEGORIE',
         ],
     'produit' =>
         [
-        
+        'shampooing' =>     ['Shampooings'],
+        'masque' =>         ['Masques'],
+        'pack' =>           ['Pack'],
+        'routine' =>        ['Routine']
+        ],
+    'promo' =>
+        [
+        'shampooing' =>     ['Shampooings'],
+        'masque' =>         ['Masques'],
+        'pack' =>           ['Pack'],
+        'routine' =>        ['Routine']
         ]
     ]
 );
