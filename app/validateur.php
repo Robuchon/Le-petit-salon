@@ -40,8 +40,6 @@ function validateur($data, $type = null) {
     }
     return $result;                  
 }
-/* reste a faire une verification en premier lieux si le champ peut etre plein vide ou les 2
-et dans les cas ou c'est vide ne pas faire les autres verification*/
 
 // validateur un nombre entier
 function validNumerique($data) {

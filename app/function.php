@@ -25,14 +25,12 @@ function adress() {
 // recuperation d'une valeur pour trouvé une categorie
 function targetCategorie () {
     $adress = adress();
-    dump($adress);
     if (array_key_exists(2, $adress) && $adress[2] != ('service' || 'produit' || 'promo')) {
         $categorie = $adress[2];
     } 
     if (array_key_exists(3, $adress)) {
         $categorie = $adress[3];
     }
-    dump($categorie);
     return $categorie;
 }
 

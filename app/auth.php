@@ -20,7 +20,6 @@ function pageAdmin () {
 }
 
 // fonction d'authentification
-// a finir pour le MDP
 function auth ($auth) {
     $erreurs = [];
     $user = 'Melissa';
