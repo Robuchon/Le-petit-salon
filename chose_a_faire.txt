@@ -1,0 +1,5 @@
+faire une création edition et suppression d'une categories {pour le moment je vais le faire en manuel}
+penser a une pagination 
+et peut etre meme a un filtre
+pour la partie gallerie recup de facon aleatoire des photos de service et peut etre faire aussi une gallerie specifique au service speciaux comme les mariages ect
+quand il n'y a pas de base de donné dans une categorie ne pas afficher le menu en question {pour le moment sans faire plusieur requete je ne vois pas trop comment faire pour que ça marche a tout les niveau}

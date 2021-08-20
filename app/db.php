@@ -54,14 +54,16 @@ function targetPromo (): array {
 // recuperation d'un tableau pour l'affichage admin des produits
 function targetProduitAdmin (): array { 
     $pdo = getPDO();
-    $query = $pdo->query("SELECT * FROM produit");
+    $categorie = targetCategorie();
+    $query = $pdo->query("SELECT * FROM produit WHERE enstock='oui' AND categorie='$categorie'");
     return $query->fetchALL();
     }
 
 // recuperation d'un tableau pour l'affichage admin des produits par promo
 function targetPromoAdmin (): array { 
     $pdo = getPDO();
-    $query = $pdo->query("SELECT * FROM produit WHERE promo != ''");
+    $categorie = targetCategorie();
+    $query = $pdo->query("SELECT * FROM produit WHERE promo != '' AND categorie='$categorie'");
     return $query->fetchALL();
     }
 

@@ -33,6 +33,24 @@ function connexion_html ($erreur = null) {
     HTML;
 }
 
+// selecteur de categorie par rapport a la constante CATEGORIE
+function html_select_categorie ($type, $setcategorie) {
+    $categories = CATEGORIE[$type];
+    $rendu = '';
+    foreach ($categories as $categorie => $key) {
+        if ($categorie === $setcategorie){
+        $rendu .= <<<HTML
+        <option value='$categorie' selected >$key[0]</option> 
+        HTML;
+        } else {
+        $rendu .= <<<HTML
+        <option value='$categorie'>$key[0]</option>
+        HTML;
+        }
+    }
+    return $rendu;
+}
+
 // rendu HTML formulaire service admin
 function html_service ($type, $erreur = null, $data = null) 
     {if (empty($erreur)) {
@@ -66,6 +84,7 @@ function html_service ($type, $erreur = null, $data = null)
     if (isset($data['img'])) {
         $img = $data['img'];
     }
+    $select = html_select_categorie($type, $categorie);
     return
     <<<HTML
         <main class="main">
@@ -81,7 +100,10 @@ function html_service ($type, $erreur = null, $data = null)
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
-                        <input type="text" name='categorie' placeholder='cathegorie de service' value="$categorie">
+                        <br>
+                        <select name="categorie">
+                            $select
+                        </select>
                     </div>
                     <div class="form-ptext">
                         <p class="form-edit">Temps</p> <p class='form-erreur'>$erreur[temps]</p>
@@ -150,6 +172,7 @@ function html_produit ($type, $erreur = null, $data = null) {
     if (isset($data['img'])) {
         $img = $data['img'];
     }
+    $select = html_select_categorie($type, $categorie);
     return
     <<<HTML
         <main class="main">
@@ -165,7 +188,10 @@ function html_produit ($type, $erreur = null, $data = null) {
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
-                        <input type="text" name='categorie' placeholder='cathegorie de produit' value="$categorie">
+                        <br>
+                        <select name="categorie">
+                            $select
+                        </select>
                     </div>
                     <div class='form-ptext'>
                         <p class="form-edit">Prix</p> <p class='form-erreur'>$erreur[prix]</p>
