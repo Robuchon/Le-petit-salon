@@ -396,7 +396,61 @@ a {
     margin-bottom: 0;
 }
 
-@media only screen and (min-width:520px) {
+.form-selecteur {
+    width: 100%;
+}
+
+@media only screen and (max-width:390px) {
+    .card-description-service {
+        display: block;
+    }
+    
+    .card-image-service {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    .com-service {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    .form-ptext {
+        display: block;
+        width: 100%;    
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .form-ptext input {
+        width: 100%;
+    }
+    
+    .form-ligne,
+    .form-ligne input {
+        display: block;
+        width: 100%;    
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .form-gtext,
+    .form-gtext textarea {
+        display: block;
+        width: 100%;    
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .form-selecteur {
+        width: 100%;
+    }
+    
+}
+
+@media only screen and (min-width:652px) {
     .topbar {
         display: flex;
         align-items: center;

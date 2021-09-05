@@ -91,6 +91,20 @@ define('CATEGORIE',
         'masque' =>         ['Masques'],
         'pack' =>           ['Pack'],
         'routine' =>        ['Routine']
+        ],
+    'top' =>
+        [
+        'accueil' =>        ['Accueil'],
+        'savoir-plus' =>    ['En savoir plus'],
+        'gallerie' =>       ['Gallerie'],
+        'contact' =>        ['Contact']
+        ],
+    'left' =>
+        [
+        'service' =>        ['Service'],
+        'book' =>           ['Book'],
+        'promo' =>          ['Promotion'],
+        'produit' =>        ['Produit'],
         ]
     ]
 );

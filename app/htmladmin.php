@@ -101,7 +101,7 @@ function html_service ($type, $erreur = null, $data = null)
                     <div class='form-ptext'>
                         <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
                         <br>
-                        <select name="categorie">
+                        <select class="form-selecteur" name="categorie">
                             $select
                         </select>
                     </div>
@@ -189,7 +189,7 @@ function html_produit ($type, $erreur = null, $data = null) {
                     <div class='form-ptext'>
                         <p class="form-edit">Categorie</p> <p class='form-erreur'>$erreur[categorie]</p>
                         <br>
-                        <select name="categorie">
+                        <select class="form-selecteur" name="categorie">
                             $select
                         </select>
                     </div>
@@ -214,11 +214,11 @@ function html_produit ($type, $erreur = null, $data = null) {
                     <div class='form-ptext'>
                         <p class="form-edit">En stock</p> <p class='form-erreur'>$erreur[enstock]</p>
                         <br>
-                        <label class="custom-file-upload">
-                        <select name="enstock">
-                            <option value="oui" $selectedoui>oui</option>
-                            <option value="non" $selectednon>non</option>
-                        </select>
+                        <label class="form-selecteur">
+                            <select class="form-selecteur" name="enstock">
+                                <option value="oui" $selectedoui>oui</option>
+                                <option value="non" $selectednon>non</option>
+                            </select>
                         </label>
                     </div>
                     <button class="btn">Créer</button>
@@ -236,7 +236,7 @@ function type_html () {
                 <form action="" method="post">
                     <div class='form-gtext'>
                         <p class="form-edit">Choix du type</p><br>
-                        <select name="type" id="type-select">
+                        <select class="form-selecteur" name="type" id="type-select">
                             <option value="service">Service</option>
                             <option value="produit">Produit</option>
                         </select>  

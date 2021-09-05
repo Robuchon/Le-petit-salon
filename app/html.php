@@ -137,6 +137,24 @@ function nav_item_right (string $lien, $titre): string {
     HTML;
 }
 
+function nav_generate_top () {
+    $tops = CATEGORIE['top'];
+    foreach ($tops as $top => $key) {
+        $nom = $key[0];
+        $rendu [] = nav_item("/$top", "$nom");
+    }
+    return $rendu;
+}
+
+function nav_generate_left () {
+    $lefts = CATEGORIE['left'];
+    foreach ($lefts as $left => $key) {
+        $nom = $key[0];
+        $rendu [] = nav_item_left("/accueil/$left", "$nom");
+    }
+    return $rendu;
+}
+
 // rendu barre de droite
 function nav_generate_right () {
     $adress = adress();
