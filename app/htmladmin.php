@@ -127,7 +127,7 @@ function html_service ($type, $erreur = null, $data = null)
                         <p class="form-edit">Déscription</p> <p class='form-erreur'>$erreur[affichage]</p>
                         <textarea name="affichage" id="" cols="" rows="4">$affichage</textarea>
                     </div>    
-                    <button class="btn">Créer</button>
+                    <button class="btn">Enregistrer</button>
                 </form>
             </article>
     HTML;
@@ -221,7 +221,7 @@ function html_produit ($type, $erreur = null, $data = null) {
                             </select>
                         </label>
                     </div>
-                    <button class="btn">Créer</button>
+                    <button class="btn">Enregistrer</button>
                 </form>
             </article>
     HTML;
